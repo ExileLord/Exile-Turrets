@@ -1,0 +1,58 @@
+--various helper functions used by different areas of code
+
+local is_turret_tbl = 
+{
+    ["ammo-turret"] = true,
+    ["artillery-turret"] = true,
+    ["artillery-wagon"] = true,
+    ["electric-turret"] = true,
+    ["fluid-turret"] = true,
+}
+function is_turret(e)
+    if e==nil then
+        return false
+    end
+
+    return is_turret_tbl[e.type]
+end
+
+--TODO: Check extensively for correctness
+function entities_are_friendly(entity1, entity2, force2)
+    if entity1 == nil then
+        --debug_print("entity1 is nil")
+        return false
+    end
+    local force1 = entity1.force
+
+    if force2 == nil and entity2 ~= nil then
+        --debug_print("inheriting force2 from entity2")
+        force2 = entity2.force
+    end
+    if force2==nil then
+        --debug_print("force2 is nil")
+        return false
+    end
+
+    --debug_print("same force check")
+    if force1.name == force2.name then
+        return true
+    end
+
+    if force1.get_friend(force2) then
+        return true
+    end
+
+    if force1.get_cease_fire(force2) then
+        return true
+    end
+
+    return false
+end
+
+function debug_print(text)
+    --FIXME
+
+    for k, player in pairs(game.players) do
+        player.print(text)
+    end
+end

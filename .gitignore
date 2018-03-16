@@ -1,0 +1,15 @@
+*.opensdf
+*.opendb
+*.sdf
+*.suo
+*.log
+*.tlog
+*.lastbuildstate
+*.cache
+*.pdb
+*.obj
+*.aps
+/.vs
+/.vscode
+
+main.lua

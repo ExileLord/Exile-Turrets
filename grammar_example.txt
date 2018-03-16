@@ -1,0 +1,108 @@
+# A name list is a structure used to generate random names.
+# Here's an example of one 
+
+DogList
+{
+    "Beagle", #33% chance
+    "Hound", #33% chance
+    "Poodle"  #33% chance
+}
+
+# Getting a random entry from DogList will yield "Beagle", "Hound", or "Poodle" with equal chance.
+
+# This list is composed of the following
+# DogList                 - The name and identifier of the list. This is the name that will be referenced to get a random entry out of this list,
+#                           The identifier must be followed by braces afterwards, otherwise this is a syntax error.
+# "Beagle","Hound",Poodle - The entries of a list. Entries must be surrounded with double quotes.
+#                           If necessary, double quotes can be escaped with the backslash key
+#                               Ex. "Entry with quotes around \"this\""
+#                           Entries are separated by commas. Unless the entry is the last one in a list, it must be followed by a comma.
+#                           A comma can optionally follow the last entry of the list.
+# Any line that begins with # is ignored. 
+
+
+# Lists can reference other lists as well.
+# Consider the following three lists
+
+DogList
+{
+    "{DogAdjective} {DogNoun}"
+}
+DogAdjective
+{
+    "Good",
+    "Hungry",
+    "Smelly",
+}
+DogNoun
+{
+    "Dog",
+    "Boy",
+    "Doggo",
+}
+
+# Now if we retrieve a random entry from DogList, the only thing that can be returned is "{DogAdjective} {DogNoun}" and this is where things get interesting
+# Any entry which contains an identifier surrounded by curly braces "{}" will have that chunk replaced by a random entry from that list
+# A random entry from DogList might generate "Good Dog", "Good Boy", "Hungry Boy", or "Smelly Doggo" for example.
+
+
+# Simple Weighting
+# Lists entries by default have a weight of 1 so each entry in a list has equal probability. This can be overridden in the following manner
+
+WeightedCoin
+{
+          "Heads",
+    [1.5] "Tails",
+}
+
+# To calculate the probability of an entry we simply divide its weight by weight of every entry in the list. Therefore we get the following
+# Total weight = 1(Heads) + 1.5(Tails) = 2.5
+# Heads = 1 / 2.5 = 40%
+# Tails = 1.5 / 2.5 = 60%
+# In this list, tails has a 60% chance of being picked instead of 50%
+
+
+# Complex Weighting
+# "Not currently supported, will default to 1 if this is attempted to be used"
+# Entries can reference the total weights of lists referenced by them. Consider the following example
+
+MergedGroup
+{
+    [%1] "{GroupOfThree}",
+    [%1] "{GroupOfTwo}",
+}
+
+GroupOfThree
+{
+    "Red",
+    "Green",
+    "Blue",
+}
+
+GroupOfTwo
+{
+    "Steam",
+    "Hamburger",
+}
+
+# The weight "%1" refers to the total weight of the first list found in the entry.
+# For the first entry this is 3 because GroupOfThree has a total weight of 3.
+# For the second entry this is 2 because GroupOfTwo has a total weight of 2.
+
+# Weighting arithmetic
+# "Not currently supported"
+# Weights support the following arithmetic operators
+# Addition "+"
+# Subtraction "-"
+# Multiplication "*"
+# Division "/"
+# Parentheses "()"
+# Consider the following example
+
+ArithmeticTest
+{
+    [2*(1+1+1)] "WeightOfSix",
+    [(%1 + %1) * 5]"WeightOfMergedGroupTimes10"
+}
+
+# The pattern [%1 * %2] is particularly useful as this is the weight of all permutations of the two lists combined

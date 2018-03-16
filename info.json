@@ -1,0 +1,9 @@
+{
+	"name":	"Exile-Turrets",
+	"version":	"0.0.1",
+	"title":	"Exile Turrets",
+	"author":	"ExileLord",
+	"description":	"Gives turrets auto-generated names and tracks which turrets are doing the best.",
+	"factorio_version":	"0.16",
+	"dependencies":	 ["base >= 0.16.0"]
+}

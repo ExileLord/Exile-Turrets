@@ -1,0 +1,369 @@
+AnimalName
+{
+    [%1] "{A_AnimalName}",
+    [%1] "{B_AnimalName}",
+    [%1] "{C_AnimalName}",
+    [%1] "{D_AnimalName}",
+    [%1] "{E_AnimalName}",
+    [%1] "{F_AnimalName}",
+    [%1] "{G_AnimalName}",
+    [%1] "{H_AnimalName}",
+    [%1] "{I_AnimalName}",
+    [%1] "{J_AnimalName}",
+    [%1] "{K_AnimalName}",
+    [%1] "{L_AnimalName}",
+    [%1] "{M_AnimalName}",
+    [%1] "{N_AnimalName}",
+    [%1] "{O_AnimalName}",
+    [%1] "{P_AnimalName}",
+    [%1] "{R_AnimalName}",
+    [%1] "{S_AnimalName}",
+    [%1] "{T_AnimalName}",
+    [%1] "{V_AnimalName}",
+    [%1] "{W_AnimalName}",
+}
+
+A_AnimalName
+{
+    "Aardvark",
+    "Albatross",
+    "Alligator",
+    "Anaconda",
+    "Anglerfish",
+    "Ant",
+    "Antelope",
+    "Antlion",
+    "Ape",
+    "Armadillo",
+}
+
+B_AnimalName
+{
+    "Baboon",
+    "Badger",
+    "Barnacle",
+    "Barracuda",
+    "Basilisk",
+    "Bass",
+    "Bat",
+    "Bear",
+    "Beaver",
+    "Bedbug",
+    "Bee",
+    "Beetle",
+    "Bird",
+    "Bison",
+    "Blackbird",
+    "Boa",
+    "Boar",
+    "Bobcat",
+    "Buffalo",
+    "Buffalo",
+    "Bug",
+    "Bull",
+    "Bunny",
+    "Butterfly",
+    "Buzzard",
+}
+
+C_AnimalName
+{
+    "Camel",
+    "Capybara",
+    "Cardinal",
+    "Caribou",
+    "Carp",
+    "Cat",
+    "Catshark",
+    "Caterpillar",
+    "Catfish",
+    "Centipede",
+    "Cephalopod",
+    "Chameleon",
+    "Cheetah",
+    "Chickadee",
+    "Chicken",
+    "Chimp",
+    "Chimpanzee",
+    "Chinchilla",
+    "Chipmunk",
+    "Cicada",
+    "Clam",
+    "Clownfish",
+    "Cobra",
+    "Cockroach",
+    "Condor",
+    "Cougar",
+    "Cow",
+    "Coyote",
+    "Crab",
+    "Crawdad",
+    "Crayfish",
+    "Cricket",
+    "Crocodile",
+    "Crow",
+}
+
+D_AnimalName
+{
+    "Deer",
+    "Dinosaur",
+    "Dog",
+    "Dolphin",
+    "Donkey",
+    "Dove",
+    "Dragonfly",
+    "Dragon",
+    "Duck",
+}
+
+E_AnimalName
+{
+    "Eagle",
+    "Earthworm",
+    "Earwig",
+    "Echidna",
+    "Eel",
+    "Elephant",
+    "Elk",
+}
+
+F_AnimalName
+{
+    "Falcon",
+    "Ferret",
+    "Finch",
+    "Firefly",
+    "Fish",
+    "Flamingo",
+    "Flea",
+    "Fly",
+    "Fox",
+    "Frog",
+}
+
+G_AnimalName
+{
+    "Gazelle",
+    "Gecko",
+    "Gerbil",
+    "Giant",
+    "Giraffe",
+    "Goat",
+    "Goldfish",
+    "Goose",
+    "Gopher",
+    "Gorilla",
+    "Grasshopper",
+    "Grizzly",
+    "Grue",
+    "Guinea Pig",
+    "Gull",
+    "Guppy",
+}
+
+H_AnimalName
+{
+    "Hammerhead",
+    "Hamster",
+    "Hare",
+    "Hawk",
+    "Hedgehog",
+    "Heron",
+    "Herring",
+    "Hippo",
+    "Hookworm",
+    "Hornet",
+    "Horse",
+    "Human",
+    "Hummingbird",
+    "Hyena",
+}
+
+I_AnimalName
+{
+    "Iguana",
+    "Imp",
+    "Insect",
+}
+
+J_AnimalName
+{
+    "Jackal",
+    "Jaguar",
+    "Jellyfish",
+}
+
+K_AnimalName
+{
+    "Kangaroo",
+    "Koala",
+    "Koi",
+    "Krill",
+}
+
+L_AnimalName
+{
+    "Ladybug",
+    "Lamprey",
+    "Leech",
+    "Lemming",
+    "Lemur",
+    "Leopard",
+    "Lion",
+    "Lizard",
+    "Llama",
+    "Lobster",
+}
+
+M_AnimalName
+{
+    "Mackerel",
+    "Magpie",
+    "Mallard",
+    "Manatee",
+    "Mandrill",
+    "Manta Ray",
+    "Mantis",
+    "Mastodon",
+    "Meerkat",
+    "Mink",
+    "Minnow",
+    "Mockingbird",
+    "Mole",
+    "Mollusk",
+    "Mongoose",
+    "Monkey",
+    "Moose",
+    "Mosquito",
+    "Moth",
+    "Mouse",
+    "Mule",
+}
+
+N_AnimalName
+{
+    "Narwhal",
+    "Needlefish",
+    "Newt",
+    "Nighthawk",
+    "Nightingale",
+    "Numbat",
+}
+
+O_AnimalName
+{
+    "Ocelot",
+    "Octopus",
+    "Orangutan",
+    "Orca",
+    "Ostrich",
+    "Otter",
+    "Owl",
+    "Ox",
+}
+
+P_AnimalName
+{
+    "Panda",
+    "Panther",
+    "Parakeet",
+    "Parrot",
+    "Peacock",
+    "Pelican",
+    "Penguin",
+    "Pig",
+    "Pigeon",
+    "Piranha",
+    "Platypus",
+    "Polar Bear",
+    "Pony",
+    "Porcupine",
+    "Possum",
+    "Primate",
+    "Puma",
+    "Python",
+}
+R_AnimalName
+{
+    "Rabbit",
+    "Raccoon",
+    "Rat",
+    "Rattlesnake",
+    "Raven",
+    "Reindeer",
+    "Reptile",
+    "Rhinoceros",
+    "Roadrunner",
+    "Rodent",
+    "Rooster",
+    "Roundworm",
+}
+
+S_AnimalName
+{
+    "Salamander",
+    "Salmon",
+    "Scorpion",
+    "Seahorse",
+    "Shark",
+    "Sheep",
+    "Shrew",
+    "Shrimp",
+    "Silkworm",
+    "Silverfish",
+    "Skunk",
+    "Sloth",
+    "Slug",
+    "Snail",
+    "Snake",
+    "Sparrow",
+    "Spider",
+    "Squid",
+    "Squirrel",
+    "Starfish",
+    "Stingray",
+    "Stork",
+    "Swallow",
+    "Swan",
+    "Swordfish",
+}
+
+T_AnimalName
+{
+    "Tarantula",
+    "Termite",
+    "Tick",
+    "Tiger",
+    "Toad",
+    "Tortoise",
+    "Toucan",
+    "Trout",
+    "Tuna",
+    "Turkey",
+    "Turtle",
+    "Tyrannosaurus",
+}
+
+V_AnimalName
+{
+    "Viper",
+    "Vixen",
+    "Vulture",
+}
+
+W_AnimalName
+{
+    "Walrus",
+    "Wasp",
+    "Weasel",
+    "Whale",
+    "Wildcat",
+    "Wildebeest",
+    "Wolf",
+    "Wolverine",
+    "Wombat",
+    "Woodchuck",
+    "Woodpecker",
+    "Worm",
+}
