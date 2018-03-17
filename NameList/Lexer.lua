@@ -74,8 +74,8 @@ end
 local function create_identifier_token(s, index)
     local token = Token.new{type=Token.types.identifier}
     
-    local start_index, end_index = string.find(s, "%a%w*", index)
-    assert(start_index==index, "Found malformed identifier while parsing.")
+    local start_index, end_index = string.find(s, "%a[%w_]*", index)
+    assert(start_index==index, "Found malformed identifier while parsing." .. string.sub(s, index, index + 20))
     token.value = string.sub(s, start_index, end_index)
 
     return token, end_index+1
@@ -85,7 +85,7 @@ local function create_list_placeholder_token(s, index)
     local token = Token.new{type=Token.types.list_placeholder}
     
     local start_index, end_index = string.find(s, "%%%d*", index)
-    assert(start_index==index, "Found malformed identifier while parsing.")
+    assert(start_index==index, "Found malformed list placeholder while parsing.")
     token.value = tonumber(string.sub(s, start_index+1, end_index))
 
     return token, end_index+1

@@ -1,0 +1,25 @@
+DeathNoun
+{
+    "Death",
+    "Extinction",
+    "Genocide",
+    "Erasure",
+}
+
+KillerNoun
+{
+    "Killer",
+    "Murderer",
+    "Exterminator",
+    "Executioner",
+    "Butcher",
+    "Slayer",
+    "Soldier",
+    "Assassin",
+    "Eraser",
+    "Ender",
+    "Deathbringer",
+    "Death Dealer",
+}
+
+

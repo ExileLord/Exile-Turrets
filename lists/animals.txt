@@ -1,29 +1,29 @@
-AnimalName
+AnimalNoun
 {
-    [%1] "{A_AnimalName}",
-    [%1] "{B_AnimalName}",
-    [%1] "{C_AnimalName}",
-    [%1] "{D_AnimalName}",
-    [%1] "{E_AnimalName}",
-    [%1] "{F_AnimalName}",
-    [%1] "{G_AnimalName}",
-    [%1] "{H_AnimalName}",
-    [%1] "{I_AnimalName}",
-    [%1] "{J_AnimalName}",
-    [%1] "{K_AnimalName}",
-    [%1] "{L_AnimalName}",
-    [%1] "{M_AnimalName}",
-    [%1] "{N_AnimalName}",
-    [%1] "{O_AnimalName}",
-    [%1] "{P_AnimalName}",
-    [%1] "{R_AnimalName}",
-    [%1] "{S_AnimalName}",
-    [%1] "{T_AnimalName}",
-    [%1] "{V_AnimalName}",
-    [%1] "{W_AnimalName}",
+    [%1] "{A_AnimalNoun}",
+    [%1] "{B_AnimalNoun}",
+    [%1] "{C_AnimalNoun}",
+    [%1] "{D_AnimalNoun}",
+    [%1] "{E_AnimalNoun}",
+    [%1] "{F_AnimalNoun}",
+    [%1] "{G_AnimalNoun}",
+    [%1] "{H_AnimalNoun}",
+    [%1] "{I_AnimalNoun}",
+    [%1] "{J_AnimalNoun}",
+    [%1] "{K_AnimalNoun}",
+    [%1] "{L_AnimalNoun}",
+    [%1] "{M_AnimalNoun}",
+    [%1] "{N_AnimalNoun}",
+    [%1] "{O_AnimalNoun}",
+    [%1] "{P_AnimalNoun}",
+    [%1] "{R_AnimalNoun}",
+    [%1] "{S_AnimalNoun}",
+    [%1] "{T_AnimalNoun}",
+    [%1] "{V_AnimalNoun}",
+    [%1] "{W_AnimalNoun}",
 }
 
-A_AnimalName
+A_AnimalNoun
 {
     "Aardvark",
     "Albatross",
@@ -37,7 +37,7 @@ A_AnimalName
     "Armadillo",
 }
 
-B_AnimalName
+B_AnimalNoun
 {
     "Baboon",
     "Badger",
@@ -66,7 +66,7 @@ B_AnimalName
     "Buzzard",
 }
 
-C_AnimalName
+C_AnimalNoun
 {
     "Camel",
     "Capybara",
@@ -104,7 +104,7 @@ C_AnimalName
     "Crow",
 }
 
-D_AnimalName
+D_AnimalNoun
 {
     "Deer",
     "Dinosaur",
@@ -117,7 +117,7 @@ D_AnimalName
     "Duck",
 }
 
-E_AnimalName
+E_AnimalNoun
 {
     "Eagle",
     "Earthworm",
@@ -128,7 +128,7 @@ E_AnimalName
     "Elk",
 }
 
-F_AnimalName
+F_AnimalNoun
 {
     "Falcon",
     "Ferret",
@@ -142,7 +142,7 @@ F_AnimalName
     "Frog",
 }
 
-G_AnimalName
+G_AnimalNoun
 {
     "Gazelle",
     "Gecko",
@@ -162,7 +162,7 @@ G_AnimalName
     "Guppy",
 }
 
-H_AnimalName
+H_AnimalNoun
 {
     "Hammerhead",
     "Hamster",
@@ -180,21 +180,21 @@ H_AnimalName
     "Hyena",
 }
 
-I_AnimalName
+I_AnimalNoun
 {
     "Iguana",
     "Imp",
     "Insect",
 }
 
-J_AnimalName
+J_AnimalNoun
 {
     "Jackal",
     "Jaguar",
     "Jellyfish",
 }
 
-K_AnimalName
+K_AnimalNoun
 {
     "Kangaroo",
     "Koala",
@@ -202,7 +202,7 @@ K_AnimalName
     "Krill",
 }
 
-L_AnimalName
+L_AnimalNoun
 {
     "Ladybug",
     "Lamprey",
@@ -216,7 +216,7 @@ L_AnimalName
     "Lobster",
 }
 
-M_AnimalName
+M_AnimalNoun
 {
     "Mackerel",
     "Magpie",
@@ -241,7 +241,7 @@ M_AnimalName
     "Mule",
 }
 
-N_AnimalName
+N_AnimalNoun
 {
     "Narwhal",
     "Needlefish",
@@ -251,7 +251,7 @@ N_AnimalName
     "Numbat",
 }
 
-O_AnimalName
+O_AnimalNoun
 {
     "Ocelot",
     "Octopus",
@@ -263,7 +263,7 @@ O_AnimalName
     "Ox",
 }
 
-P_AnimalName
+P_AnimalNoun
 {
     "Panda",
     "Panther",
@@ -284,7 +284,7 @@ P_AnimalName
     "Puma",
     "Python",
 }
-R_AnimalName
+R_AnimalNoun
 {
     "Rabbit",
     "Raccoon",
@@ -300,7 +300,7 @@ R_AnimalName
     "Roundworm",
 }
 
-S_AnimalName
+S_AnimalNoun
 {
     "Salamander",
     "Salmon",
@@ -329,7 +329,7 @@ S_AnimalName
     "Swordfish",
 }
 
-T_AnimalName
+T_AnimalNoun
 {
     "Tarantula",
     "Termite",
@@ -345,14 +345,14 @@ T_AnimalName
     "Tyrannosaurus",
 }
 
-V_AnimalName
+V_AnimalNoun
 {
     "Viper",
     "Vixen",
     "Vulture",
 }
 
-W_AnimalName
+W_AnimalNoun
 {
     "Walrus",
     "Wasp",

@@ -1,0 +1,34 @@
+AnimalAlliterationName
+{
+    "{A_Adjective} {A_AnimalNoun}",
+    "{B_Adjective} {B_AnimalNoun}",
+    "{C_Adjective} {C_AnimalNoun}",
+    "{D_Adjective} {D_AnimalNoun}",
+    "{E_Adjective} {E_AnimalNoun}",
+    "{F_Adjective} {F_AnimalNoun}",
+    "{G_Adjective} {G_AnimalNoun}",
+    "{H_Adjective} {H_AnimalNoun}",
+    "{I_Adjective} {I_AnimalNoun}",
+    "{J_Adjective} {J_AnimalNoun}",
+    "{K_Adjective} {K_AnimalNoun}",
+    "{L_Adjective} {L_AnimalNoun}",
+    "{M_Adjective} {M_AnimalNoun}",
+    "{N_Adjective} {N_AnimalNoun}",
+    "{O_Adjective} {O_AnimalNoun}",
+    "{P_Adjective} {P_AnimalNoun}",
+    #"{Q_Adjective} {Q_AnimalNoun}",
+    "{R_Adjective} {R_AnimalNoun}",
+    "{S_Adjective} {S_AnimalNoun}",
+    "{T_Adjective} {T_AnimalNoun}",
+    #"{U_Adjective} {U_AnimalNoun}",
+    "{V_Adjective} {V_AnimalNoun}",
+    "{W_Adjective} {W_AnimalNoun}",
+    #"{X_Adjective} {X_AnimalNoun}",
+    #"{Y_Adjective} {Y_AnimalNoun}",
+    #"{Z_Adjective} {Z_AnimalNoun}",
+}
+
+GenericTurretName
+{
+    "{AnimalAlliterationName}",
+}

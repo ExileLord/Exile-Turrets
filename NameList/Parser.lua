@@ -24,7 +24,7 @@ local function parse_pure_entry(list, start)
         assert(token ~= nil, "Reached end of file while parsing list entry.")
         assert(token.type == Token.types.string, "Found " .. Token.type_names[token.type] .. " while parsing list entry. Expected string.")
         s = s .. token.value --naive concatenation should be find
-        i=i+1
+        i = i + 1
         token = list[i]
     until token.type == Token.types.separator or token.type == Token.types.list_block
 
@@ -40,7 +40,7 @@ local function parse_weight(list, start)
     local token = list[i]
     assert(token ~= nil and token.type == Token.types.weight_block and token.value == "[", "Error parsing weight block.")
     while token~=nil do
-        i = i+1
+        i = i + 1
         token = list[i]
         assert(token ~= nil, "Reached end of file while parsing weight block.")
         if token.type == Token.types.weight_block then
@@ -49,7 +49,7 @@ local function parse_weight(list, start)
         end
     end
 
-    return nil, i+1
+    return nil, i + 1
 end
 
 
@@ -83,12 +83,12 @@ local function parse_list(list, start)
     name_list = NameList.new{name=name}
 
     --Check for opening brace
-    i = i+1
+    i = i + 1
     token = list[i]
     assert(token.value == "{", "Expected \"{\" following list name identifier.")
 
     --Parse list content
-    i = i+1
+    i = i + 1
     token = list[i]
     while token.type ~= Token.types.list_block do
         if (token.type ~= Token.types.separator) then
@@ -96,7 +96,7 @@ local function parse_list(list, start)
             weight, entry, i = parse_entry(list, i)
             name_list:add(entry, weight)
         else
-            i = i+1 --This is a comma!
+            i = i + 1 --This is a comma!
         end
         token = list[i]
     end
@@ -104,7 +104,7 @@ local function parse_list(list, start)
     --Check for closing brace
     assert(token.value == "}", "Expected \"}\" at the end of list definition.")
 
-    return name_list, i+1
+    return name_list, i + 1
 end
 
 

@@ -1,0 +1,35 @@
+
+
+SearcherNoun
+{
+    "Seeker",
+    "Aspirant",
+}
+
+LiberatorNoun
+{
+    "Liberator",
+    "Deliverer",
+    "Rescuer",
+    "Redeemer",
+}
+
+#Generic alien terms to throw into names
+AlienNoun
+{
+    "Bug",
+    "Alien",
+    "Biter",
+    "Spitter",
+    "Worm",
+    "Ankle Biter",
+    "Vermin",
+    "Pest",
+    "Insect",
+    "Arachnid",
+    "Gnat",
+    "Grub",
+    "Beetle",
+    "Cricket",
+}
+

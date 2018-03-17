@@ -1,0 +1,100 @@
+ArtilleryTurretName
+{
+    "{ArtilleryDivine1} {ArtilleryDivine2}",
+    "{OffspringNoun} of {Deity}", 
+    "{DivineBeing}'s {DivineBeingNoun}",
+}
+
+#These two are meant to work with eachother for occasional artillery names
+ArtilleryDivine1
+{
+    "Hell",
+    "God",
+    "Angel",
+    "Devil",
+    "Demon",
+    "Nephilim",
+    "Dawn",
+    "Life",
+    "World",
+    "Heaven",
+    "Sky",
+    "Peace", #Maybe?
+}
+
+ArtilleryDivine2
+{
+    "Breaker",
+    "Cracker",
+    "Splitter",
+    "Destroyer",
+    "Hammer",
+    "Crusher",
+    "Eraser",
+    "Spear",
+    "Javelin",
+    "Deliverer",
+    "Cannon",
+    "Weapon",
+    "Child",
+}
+
+OffspringNoun
+{
+    "Child",
+    "Son",
+    "Daughter",
+    "Progeny",
+    "Descendant",
+}
+
+Deity
+{
+    "God",
+    "Satan",
+    "Lucifer",
+    "Ares",
+    "Athena",
+    "Eris",
+    "Gaia",
+    "Zeus",
+    "Hades",
+    "Earth",
+    "Mars",
+    "Venus",
+    "Neptune",
+    "Osiris",
+    "Ra",
+    "Thor",
+    "Heaven",
+    "Hell",
+}
+
+
+DivineBeing
+{
+    "God",
+    "Devil",
+    "Demon",
+    "Angel",
+    "The Lord",
+}
+
+DivineBeingNoun
+{
+    "Forgiveness",
+    "Sadness",
+    "Anger",
+    "Apathy",
+    "Pity",
+    "Envy",
+    "Hatred",
+    "Disdain",
+    "Love",
+    "Solution",
+    "Gift",
+    "Messenger",
+    "Machine",
+    "Device",
+    "Solution",
+}

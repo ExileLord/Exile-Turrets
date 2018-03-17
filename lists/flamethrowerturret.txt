@@ -1,0 +1,87 @@
+
+#███████╗██╗      █████╗ ███╗   ███╗███████╗                 
+#██╔════╝██║     ██╔══██╗████╗ ████║██╔════╝                 
+#█████╗  ██║     ███████║██╔████╔██║█████╗                   
+#██╔══╝  ██║     ██╔══██║██║╚██╔╝██║██╔══╝                   
+#██║     ███████╗██║  ██║██║ ╚═╝ ██║███████╗                 
+#╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝                 
+#                                                            
+#████████╗██╗  ██╗██████╗  ██████╗ ██╗    ██╗███████╗██████╗ 
+#╚══██╔══╝██║  ██║██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗
+#   ██║   ███████║██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝
+#   ██║   ██╔══██║██╔══██╗██║   ██║██║███╗██║██╔══╝  ██╔══██╗
+#   ██║   ██║  ██║██║  ██║╚██████╔╝╚███╔███╔╝███████╗██║  ██║
+#   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝
+
+#Flamethrower Turret Name
+FlamethrowerTurretName
+{
+    "{FlamethrowerTurretAdjective} {AlienNoun} {FlamethrowerTurretNoun}",
+    "{FlamethrowerTurretAdjective} {CountryAdjective} {FlamethrowerTurretNoun}",
+    "{AlienNoun} {FireNoun}",
+}
+
+FlamethrowerTurretAdjective
+{
+    "{FireAdjective}",
+    "{GloryAdjective}",
+}
+
+FlamethrowerTurretNoun
+{
+    "{FireNoun}",
+    "{KillerNoun}",
+    "{WeaponPersonNoun}",
+}
+
+#Intended for flamethrower turret
+FireAdjective
+{
+    "Hot",
+    "Spicy",
+    "Spiced",
+    "Habanero",
+    "Burning",
+    "Toasty",
+    "Toasted",
+    "Warm",
+    "Blazing",
+    "Heated",
+    "Sweltering",
+    "Sizzling",
+    "Scorching",
+    "Scorched",
+    "Broiling",
+    "Broiled",
+    "Roasting",
+    "Roasted",
+    "Igneous",
+    "Smoking",
+    "Smoked",
+    "Smoldering",
+    "Blistering",
+    "Fiery",
+    "Sunny",
+    "Glowing",
+    "Boiling",
+    "Incendiary",
+    "Molten",
+}
+
+FireNoun
+{
+    "Oven",
+    "Furnace",
+    "Bonfire",
+    "Microwave",
+    "Cauldron",
+    "Crucible",
+    "Pyre",
+    "Torch",
+    "Pyro",
+    "Roaster",
+    "Scorcher",
+    "Melter",
+    "Burner",
+}
+

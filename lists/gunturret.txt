@@ -1,0 +1,51 @@
+#Gun Turret Name
+GunTurretName
+{
+    "{GloryAdjective} {AlienNoun} {KillerNoun}",
+    "{AlienNoun} {KillerNoun}",
+    "{OffspringNoun} of {GloryNoun}",
+    "{SearcherNoun} of {GloryNoun}",
+    "{GloryNoun} {SearcherNoun}",
+    "{TurretBarrelNoun} of {PainNoun}",
+    "{TurretBarrelNoun} of {DeathNoun}",
+    "{BattleNoun} {WeaponPersonNoun}",
+    "{CountryAdjective} {BattleNoun} {WeaponPersonNoun}",
+    "{CountryAdjective} {LiberatorNoun}",
+    "{GloryAdjective} {WeaponPersonNoun}",
+    "{GloryAdjective} {BattleNoun} {WeaponPersonNoun}",
+}
+
+RotatingAdjective
+{
+    "Spinning",
+    "Revolving",
+    "Spiraling",
+    "Gyrating",
+    "Turning",
+    "Rotating",
+    "Whirling",
+    "Reeling",
+}
+
+GunBarrelsNoun
+{
+    "Barrels",
+    "Drums",
+    "Cylinders",
+}
+
+TurretBarrelNoun
+{
+    "Six {GloryAdjective} {GunBarrelsNoun}",
+    "Six {RotatingAdjective} {GunBarrelsNoun}",
+    "Six {ScaryAdjective} {GunBarrelsNoun}",
+}
+
+PainNoun
+{
+    "Pain",
+    "Agony",
+    "Suffering",
+    "Torture",
+    "Torment",
+}

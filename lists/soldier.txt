@@ -1,0 +1,24 @@
+FullSoldierNoun
+{
+}
+
+BattleNoun
+{
+    "War",
+    "Battle",
+    "Freedom",
+    "Liberation",
+}
+
+WeaponPersonNoun
+{
+    "Commander",
+    "Leader",
+    "Chief",
+    "Hero",
+    "Veteran",
+    "Soldier",
+    "Sergeant",
+    "Colonel",
+    "Lieutenant",
+}

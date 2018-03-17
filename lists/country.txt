@@ -1,0 +1,30 @@
+CountryNoun
+{
+    "America",
+    "Freedomland",
+    "Gunland",
+    "Gunistan",
+    "Guntopia",
+    "Africa",
+    "Chicago",
+    "Detroit",
+    "Britain",
+    "Australia",
+    "Kangarooland",
+    "Russia",
+    "China",
+    "Japan",
+}
+
+CountryAdjective
+{
+    "American",
+    "Gunlandian",
+    "Gunistanian",
+    "African",
+    "British",
+    "Australian",
+    "Russian",
+    "Chinese",
+    "Japanese",
+}
