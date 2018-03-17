@@ -77,7 +77,7 @@ local function parse_list(list, start)
     local token = list[i]
     local name_list
 
-    assert(token.type == Token.types.identifier, "Error while parsing name list. Expected identifier. Found " .. Token.type_names[token.type])
+    assert(token.type == Token.types.identifier, "Error while parsing name list. Expected identifier")
     local name = token.value
 
     name_list = NameList.new{name=name}
