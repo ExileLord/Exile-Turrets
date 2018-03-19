@@ -1,6 +1,9 @@
+-- The parser that generates a series of name lists (a master list) from a set of lexed tokens
+
 require "NameList.Token"
 require "NameList.Lexer"
 require "NameList.Entry"
+require "NameList.Expression"
 
 NameList = NameList or {}
 NameList.Parser = NameList.Parser or {}
@@ -10,8 +13,8 @@ local Token = NameList.Token
 local Parser = NameList.Parser
 local Lexer = NameList.Lexer
 local Entry = NameList.Entry
+local Expression = NameList.Expression
 local MasterList = NameList.MasterList
-
 
 local function parse_pure_entry(list, start)
     local entry = Entry.new()
@@ -22,7 +25,7 @@ local function parse_pure_entry(list, start)
     -- Multiple strings will be concatenated
     repeat
         assert(token ~= nil, "Reached end of file while parsing list entry.")
-        assert(token.type == Token.types.string, "Found " .. Token.type_names[token.type] .. " while parsing list entry. Expected string.")
+        assert(token.type == Token.types.string, "Found unexpected" .. Token.type_names[token.type] .. " while parsing list entry. Expected comma separator or string.")
         s = s .. token.value --naive concatenation should be find
         i = i + 1
         token = list[i]
@@ -33,7 +36,8 @@ local function parse_pure_entry(list, start)
     return entry, i 
 end
 
-
+local function parse_weight_inner(list, start)
+end
 
 local function parse_weight(list, start)
     local i = start
@@ -49,7 +53,11 @@ local function parse_weight(list, start)
         end
     end
 
-    return nil, i + 1
+    local expression
+    if i - start > 1 then
+        expression = Expression.new{token_list = {table.unpack(list, start + 1, i - 1)}}
+    end
+    return expression, i + 1
 end
 
 

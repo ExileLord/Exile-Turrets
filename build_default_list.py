@@ -2,9 +2,7 @@
 
 import os
 
-directory = "lists"
-joinedText = ""
-
+# Makes a "[[string]]""[=[string]=]"/ style quote where the amount of equal signs is equal to the depth given
 def makequotedepth(c, depth):
     s = c
     for x in range(0, depth):
@@ -12,6 +10,7 @@ def makequotedepth(c, depth):
     s += c
     return s
 
+# Finds out the needed quote depth in order to encapsulate the given string s without escaping anything inside
 def getquotedepth(s):
     depth = 0
     while True:
@@ -24,7 +23,9 @@ def getquotedepth(s):
             break
     return depth
 
-
+# Joins all text files in the list subdirectory
+directory = "lists"
+joinedText = ""
 for filename in os.listdir(directory):
     if filename.endswith(".txt"):
         fullname = os.path.join(directory, filename)
@@ -35,6 +36,7 @@ for filename in os.listdir(directory):
     else:
         continue
 
+# Generate the .lua file
 quoteDepth = getquotedepth(joinedText)
 opener = makequotedepth("[", quoteDepth) + "\n"
 closer = "\n" + makequotedepth("]", quoteDepth)

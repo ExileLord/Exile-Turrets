@@ -2,6 +2,7 @@
 --require "NameList.Parser"
 require "NameList.Entry"
 require "NameList.MasterList"
+require "NameList.Expression"
 
 
 NameList = NameList or {}
@@ -9,11 +10,13 @@ NameList = NameList or {}
 NameList.InnerList = NameList.InnerList or {}
 NameList.SimpleList = NameList.SimpleList or {}
 NameList.ComplexList = NameList.ComplexList or {}
-NameList.Entry = NameList.Entry or {}
+
 local InnerList = NameList.InnerList
 local SimpleList = NameList.SimpleList
 local ComplexList = NameList.ComplexList
 local Entry = NameList.Entry
+local Expression = NameList.Expression
+
 setmetatable(SimpleList, {__index = InnerList})
 setmetatable(ComplexList, {__index = InnerList})
 
@@ -26,7 +29,7 @@ setmetatable(ComplexList, {__index = InnerList})
 function InnerList.new(o)
     o = o or {}
     o.entries = {} --list of NameList.Entry classes
-    o.weights = {} --unknown implementation
+    o.weights = {} --Expressions
 
     o.running_weight = {} --list of increasing numeric weights.
                            --running_weight[1] = weight[1],
@@ -50,6 +53,7 @@ function InnerList:size()
 end
 
 function InnerList:add(entry, weight)
+    weight = weight or 1
     table.insert(self.entries, entry)
     table.insert(self.weights, weight)
     return #self.entries
@@ -96,19 +100,28 @@ end
 
 --Returns a random name list entry in this inner list
 --Returns NameList.Entry
-function InnerList:randomEntry()
+function InnerList:randomEntry(master_list)
     if #self.entries == 0 then
         return ""
     end
 
-    if self.total_weight == 0 then
-        self:buildWeightTable()
-    end
-    assert(self.total_weight > 0, "Tried to get random entry from a table with 0 weight.")
+    assert(self:weight(master_list) > 0, "Tried to get random entry from a table with 0 weight.")
 
     local index = get_weighted_index(self.running_weight)
     assert(index >= 1 and index <= #self.running_weight, "get_weighted_index returned out of bounds index")
     return self.entries[index]
+end
+
+function InnerList:weight(master_list)
+    if #self.entries == 0 then 
+        return 0 
+    end
+
+    if self.total_weight == 0 then
+        self:buildWeightTable(master_list)
+    end
+    
+    return self.total_weight
 end
 
 
@@ -137,18 +150,15 @@ function SimpleList:buildWeightTable()
     self:purgeWeightTable()
     local total_weight = 0
     for i, weight in ipairs(self.weights) do
+        if type(weight) ~="table" then
+            weight = 1 
+        else
+            weight = Expression.evaluate(weight)
+        end
         total_weight = total_weight + weight
         table.insert(self.running_weight, total_weight)
     end
     self.total_weight = total_weight
-end
-
-function SimpleList:add(entry, weight)
-    --This should probably be changed
-    if weight==nil or type(weight) ~= "numeric" then
-        weight = 1
-    end
-    return InnerList.add(self, entry, weight)
 end
 
 --[[
@@ -173,12 +183,13 @@ function ComplexList.repairMetatable(o)
 end
 
 -- This is incomplete and/or wrong. I am leaving this here only to avoid butchering the main code
-function ComplexList:buildWeightTable()
+function ComplexList:buildWeightTable(master_list)
     self:purgeWeightTable()
     local total_weight = 0
     for i, weight in ipairs(self.weights) do
         --calculate weight from token list here and make additional recursive build weight table calls
-        total_weight = total_weight + weight
+        local entry = self.entries[i]
+        total_weight = total_weight + Expression.evaluate(weight, entry.referenced_lists, master_list)
         table.insert(self.running_weight, total_weight)
     end
     self.total_weight = total_weight

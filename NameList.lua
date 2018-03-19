@@ -14,41 +14,18 @@ local ComplexList = NameList.ComplexList
 local MasterList = NameList.MasterList
 
 
-
-
-
-
---Checks for cycles in th
-function CycleCheck(list, checked)
-    checked = checked or {}
-end
-
-function NameList:AssertNoLoops()
-    for list, dependencies in pairs(self.complex_dependencies) do
-    end
-end
-
---[[
-    The NameList, a random name generator
---]]
+-- NameList, a random name generator
 function NameList.new(o)
     --List must have a name
     if (o == nil or o.name == nil) then
         error("NameList constructor called without a valid name parameter.")
     end
 
-    --Name must be unique
-    --if (NameList.lists[o.name] ~= nil) then
-    --    error("A NameList must have a unique name.")
-    --end
-
     setmetatable(o, {__index = NameList})
 
     o.simple_list = SimpleList.new()
     o.complex_list = ComplexList.new()
-    --o.dependents = {}
 
-    --NameList.lists[o.name] = o
     return o
 end
 
@@ -61,34 +38,18 @@ function NameList.repairMetatable(o)
     ComplexList.repairMetatable(o.complex_list)
 end
 
-local function is_weight_complex(token_chain)
-    if token_chain == nil or type(token_chain) ~= "table" then
-        return false
-    end
-
-    for i, token in ipairs(token_chain) do
-        if token.type == Token.types.list_placeholder then
-            return true
-        end
-    end
-
-    return false
-end
-
-function NameList:recalculateWeight(o)
-    error("Not implemented yet.")
+function NameList:weight(master_list)
+    return self.simple_list:weight() + self.complex_list:weight(master_list)
 end
 
 --Adds an entry to a name list with the given weight
---(TODO) Weight should be a NameList expression
+--entry - NameList.Entry
+--weight - NameList.Expression (optional, default:1)
 function NameList:add(entry, weight)
-    weight = weight or 1
-    assert(weight > 0, "Weight must be greater than zero.")
-
-    if (is_weight_complex(weight)) then
-        self.complex_list:add(entry, weight)
+    if (weight == nil or weight.value ~= nil) then
+        self.simple_list:add(entry, weight)
     else
-        self.simple_list:add(entry,weight)
+        self.complex_list:add(entry, weight)
     end
 end
 
@@ -97,18 +58,14 @@ end
 function NameList:randomName(master_list)
     local list
 
-    if self.complex_list:size() == 0 then
+    local weight = math.random() * self:weight(master_list)
+    if weight <= self.simple_list:weight() then
         list = self.simple_list
     else
-        local weight = math.random() * self.total_weight
-        if weight < self.simple_list.total_weight then
-            list = self.simple_list
-        else
-            list = self.complex_list
-        end
+        list = self.complex_list
     end
 
-    local entry = list:randomEntry()
+    local entry = list:randomEntry(master_list)
     local name = entry:toString(master_list)
     return name
 end

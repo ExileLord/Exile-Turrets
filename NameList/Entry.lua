@@ -23,7 +23,7 @@ end
 function Entry.new(o)
     o = o or {}
     o.entries = o.entries or {} --List of EntryPiece objects to construct a string with
-    o.references = o.references or {} --Table of with list names as key and number of references as value
+    o.referenced_lists = o.referenced_lists or {} --Table of with list names as key and number of references as value
     setmetatable(o, {__index = Entry} )
 
     if o.text ~= nil then
@@ -117,7 +117,8 @@ function Entry:parse(str)
             listChunk = replace_escape_sequences(listChunk)
             local piece = EntryPiece.new{text=listChunk, is_list=true}
             table.insert(self.entries, piece)
-            self.references[listChunk] = (self.references[listChunk] or 0) + 1
+            table.insert(self.referenced_lists, listChunk)
+            --self.references[listChunk] = (self.references[listChunk] or 0) + 1
         end
         
         if list_close_index==nil then

@@ -14,7 +14,7 @@ DogList
 # DogList                 - The name and identifier of the list. This is the name that will be referenced to get a random entry out of this list,
 #                           The identifier must be followed by braces afterwards, otherwise this is a syntax error.
 # "Beagle","Hound",Poodle - The entries of a list. Entries must be surrounded with double quotes.
-#                           If necessary, double quotes can be escaped with the backslash key
+#                           If necessary, double quotes can be escaped inside the list with the backslash key
 #                               Ex. "Entry with quotes around \"this\""
 #                           Entries are separated by commas. Unless the entry is the last one in a list, it must be followed by a comma.
 #                           A comma can optionally follow the last entry of the list.
@@ -63,7 +63,6 @@ WeightedCoin
 
 
 # Complex Weighting
-# "Not currently supported, will default to 1 if this is attempted to be used"
 # Entries can reference the total weights of lists referenced by them. Consider the following example
 
 MergedGroup
@@ -90,7 +89,6 @@ GroupOfTwo
 # For the second entry this is 2 because GroupOfTwo has a total weight of 2.
 
 # Weighting arithmetic
-# "Not currently supported"
 # Weights support the following arithmetic operators
 # Addition "+"
 # Subtraction "-"
@@ -102,7 +100,7 @@ GroupOfTwo
 ArithmeticTest
 {
     [2*(1+1+1)] "WeightOfSix",
-    [(%1 + %1) * 5]"WeightOfMergedGroupTimes10"
+    [(%1 + %1) * 5] "WeightOfReferencedListTimes10{ListReference}"
 }
 
 # The pattern [%1 * %2] is particularly useful as this is the weight of all permutations of the two lists combined

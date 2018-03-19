@@ -1,3 +1,5 @@
+-- Responsible for lexing a text into a series of tokens to be parsed by the Parser
+
 require "NameList.Token"
 
 NameList = NameList or {}
