@@ -30,5 +30,19 @@ AnimalAlliterationName
 
 GenericTurretName
 {
-    "{AnimalAlliterationName}",
+    [0.3] "{OffspringNoun} of {GloryNoun}",
+    [0.3] "{SearcherNoun} of {GloryNoun}",
+    [0.3] "{GloryNoun} {SearcherNoun}",
+    [0.5] "{GloryAdjective} {AlienNoun} {KillerNoun}",
+
+    [1.0]"{BattleNoun} {WeaponPersonNoun}",
+    [0.3]"{CountryAdjective} {BattleNoun} {WeaponPersonNoun}",
+    [0.8]"{CountryAdjective} {LiberatorNoun}",
+    [1.0]"{GloryAdjective} {WeaponPersonNoun}",
+    [0.5]"{GloryAdjective} {BattleNoun} {WeaponPersonNoun}",
+
+    [3] "{AlienNoun} {KillerNoun}",
+    [1.2] "{AnimalAlliterationName}",
+    [0.05] "{HumanFirstName} \"{AlienNoun} {KillerNoun}\" {HumanLastName}",
+    [0.08] "{HumanFirstName}",
 }

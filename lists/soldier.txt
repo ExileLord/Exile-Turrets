@@ -10,6 +10,13 @@ BattleNoun
     "Liberation",
 }
 
+MilitaryRank
+{
+    "Private",
+    "Colonel",
+    "Sergeant",
+}
+
 WeaponPersonNoun
 {
     "Commander",

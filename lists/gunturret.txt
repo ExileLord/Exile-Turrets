@@ -1,18 +1,9 @@
 #Gun Turret Name
 GunTurretName
 {
-    "{GloryAdjective} {AlienNoun} {KillerNoun}",
-    "{AlienNoun} {KillerNoun}",
-    "{OffspringNoun} of {GloryNoun}",
-    "{SearcherNoun} of {GloryNoun}",
-    "{GloryNoun} {SearcherNoun}",
-    "{TurretBarrelNoun} of {PainNoun}",
-    "{TurretBarrelNoun} of {DeathNoun}",
-    "{BattleNoun} {WeaponPersonNoun}",
-    "{CountryAdjective} {BattleNoun} {WeaponPersonNoun}",
-    "{CountryAdjective} {LiberatorNoun}",
-    "{GloryAdjective} {WeaponPersonNoun}",
-    "{GloryAdjective} {BattleNoun} {WeaponPersonNoun}",
+    [0.5]   "{TurretBarrelNoun} of {PainNoun}",
+    [0.5]   "{TurretBarrelNoun} of {DeathNoun}",
+    [10]    "{GenericTurretName}",
 }
 
 RotatingAdjective

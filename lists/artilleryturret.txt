@@ -3,6 +3,7 @@ ArtilleryTurretName
     "{ArtilleryDivine1} {ArtilleryDivine2}",
     "{OffspringNoun} of {Deity}", 
     "{DivineBeing}'s {DivineBeingNoun}",
+    [0.1]"{HumanFirstName}",
 }
 
 #These two are meant to work with eachother for occasional artillery names
@@ -19,7 +20,7 @@ ArtilleryDivine1
     "World",
     "Heaven",
     "Sky",
-    "Peace", #Maybe?
+    [0.3]"Peace", #Maybe?
 }
 
 ArtilleryDivine2

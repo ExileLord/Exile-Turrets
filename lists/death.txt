@@ -15,11 +15,11 @@ KillerNoun
     "Butcher",
     "Slayer",
     "Soldier",
-    "Assassin",
-    "Eraser",
-    "Ender",
-    "Deathbringer",
-    "Death Dealer",
+    [0.8]"Assassin",
+    [0.8]"Eraser",
+    [0.7]"Ender",
+    [0.2]"Deathbringer",
+    [0.3]"Death Dealer",
 }
 
 

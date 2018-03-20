@@ -5,9 +5,11 @@ Turret = Turret or {}
 
 --locals
 local MAX_NAME_REGENERATION_ATTEMPTS = 7
-local turret_list
-local names_in_use
+local turret_table
+local dead_turret_array
+local turret_leaderboard
 local turret_count
+local names_in_use
 local master_list
 
 --Reason why a turret died
@@ -23,15 +25,35 @@ local kill_reasons =
 
 
 -- Gets the corresponding turret entry for the given turret entity
-function GetTurretEntry(e)
-    return turret_list[e.unit_number]
+function get_turret_entry(e)
+    return turret_table[e.unit_number]
+end
+
+local function default_leaderboard_sort(a, b)
+    local kills1 = Turret.kills(a)
+    local kills2 = Turret.kills(b)
+    if kills1 ~= kills2 then
+        return kills1 > kills2
+    end
+
+    return Turret.damageDealt(a) > Turret.damageDealt(b)
+end
+
+function get_leaderboard_sorted(sort_function)
+    sort_function = sort_function or default_leaderboard_sort
+    local sorted_list = {}
+    for k,v in pairs(turret_table) do
+        table.insert(sorted_list, v)
+    end
+    table.sort(sorted_list, sort_function)
+    return sorted_list
 end
 
 -- Unlinks a turret entry from a turret entity. Typically this is done because the turret died and is about to be destroyed
 local function unlink_turret(turret)
     local e = turret.entity
-    turret.kills = e.kills
-    turret.damage = e.damage
+    turret.dead_kills = e.kills
+    turret.dead_damage_dealt = e.damage_dealt
     turret.entity = nil
 end
 
@@ -43,7 +65,7 @@ local function add_turret(e)
     local turret = Turret.new{entity=e}
     names_in_use[turret.name] = (names_in_use[turret.name] or 0) + 1
     local key = e.unit_number
-    turret_list[key] = turret
+    turret_table[key] = turret
     debug_print(string.format( "Turret \"%s\" added under key %s. Count: %d", turret.name, tostring(key), turret_count) )
 
     return turret
@@ -56,21 +78,26 @@ local function remove_turret(e, cause_of_death)
 
     local key = e.unit_number
     
-    
-    local turret = turret_list[key]
+    -- Remove the turret from the table
+    local turret = turret_table[key]
     if (turret == nil) then
         debug_print("Tried to remove turret that didn't exist in the turret table! Key: %s", tostring(key))
         return nil
     end
-    turret_list[key] = nil
+    turret_table[key] = nil
 
+    -- Add to dead turrets array
+    table.insert(dead_turret_array, turret)
+    unlink_turret(turret)
+    turret.cause_of_death = cause_of_death
+
+    -- Update names in use
     names_in_use[turret.name] = names_in_use[turret.name] - 1
     if names_in_use[turret.name] == 0 then
         names_in_use[turret.name] = nil
     end
 
-    unlink_turret(turret)
-    turret.cause_of_death = cause_of_death
+    
 
     debug_print(string.format( "Turret \"%s\" removed under key %s. Cause of death: %d. Count: %d", turret.name, tostring(key), cause_of_death, turret_count) )
 
@@ -153,6 +180,17 @@ function Turret.new(o)
     return o
 end
 
+function Turret:kills()
+    return self.dead_kills or self.entity.kills
+end
+
+function Turret:damageDealt()
+    return self.dead_damage_dealt or self.entity.damage_dealt
+end
+
+function Turret:type()
+    return "Unknown"
+end
 
 
 
@@ -165,7 +203,7 @@ local function build_turret_table_surface_filtered(surface, type)
     local entities = surface.find_entities_filtered{type = type}
 
     for k, entity in pairs(entities) do
-        if GetTurretEntry(entity)==nil then
+        if get_turret_entry(entity)==nil then
             add_turret(entity)
         end
     end
@@ -192,10 +230,25 @@ local function build_turret_table()
 end
 
 
+
+-- ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ 
+--▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌
+-- ▀▀▀▀█░█▀▀▀▀ ▐░▌░▌     ▐░▌ ▀▀▀▀█░█▀▀▀▀  ▀▀▀▀█░█▀▀▀▀ 
+--     ▐░▌     ▐░▌▐░▌    ▐░▌     ▐░▌          ▐░▌     
+--     ▐░▌     ▐░▌ ▐░▌   ▐░▌     ▐░▌          ▐░▌     
+--     ▐░▌     ▐░▌  ▐░▌  ▐░▌     ▐░▌          ▐░▌     
+--     ▐░▌     ▐░▌   ▐░▌ ▐░▌     ▐░▌          ▐░▌     
+--     ▐░▌     ▐░▌    ▐░▌▐░▌     ▐░▌          ▐░▌     
+-- ▄▄▄▄█░█▄▄▄▄ ▐░▌     ▐░▐░▌ ▄▄▄▄█░█▄▄▄▄      ▐░▌     
+--▐░░░░░░░░░░░▌▐░▌      ▐░░▌▐░░░░░░░░░░░▌     ▐░▌     
+-- ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀  ▀▀▀▀▀▀▀▀▀▀▀       ▀      
+                                                    
 -- Called in on_init
 function turrets_initialize()
     --Init globals
-    global.turret_list = global.turret_list or {}
+    global.turret_table = global.turret_table or {}
+    global.dead_turret_array = global.dead_turret_array or {}
+    global.turret_leaderboard = global.turret_leaderboard or {}
 
     --Init locals
     turrets_load()
@@ -207,13 +260,14 @@ end
 -- Called in on_load
 function turrets_load()
     --Init locals
-    turret_list = global.turret_list
+    turret_table = global.turret_table
     master_list = global.master_list
+    dead_turret_array = global.dead_turret_array
     names_in_use = {}
     turret_count = 0
 
     --Fix locals
-    for k,turret in pairs(turret_list) do
+    for k,turret in pairs(turret_table) do
         setmetatable(turret, {__index = Turret})
         turret_count = turret_count + 1
         names_in_use[k] = (names_in_use[k] or 0) + 1
@@ -225,10 +279,18 @@ end
 
 
 
---------------------
---Scripting Events--
---------------------
-
+-- ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ 
+--▐░░░░░░░░░░░▌▐░▌             ▐░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌
+--▐░█▀▀▀▀▀▀▀▀▀  ▐░▌           ▐░▌ ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌░▌     ▐░▌ ▀▀▀▀█░█▀▀▀▀ ▐░█▀▀▀▀▀▀▀▀▀ 
+--▐░▌            ▐░▌         ▐░▌  ▐░▌          ▐░▌▐░▌    ▐░▌     ▐░▌     ▐░▌          
+--▐░█▄▄▄▄▄▄▄▄▄    ▐░▌       ▐░▌   ▐░█▄▄▄▄▄▄▄▄▄ ▐░▌ ▐░▌   ▐░▌     ▐░▌     ▐░█▄▄▄▄▄▄▄▄▄ 
+--▐░░░░░░░░░░░▌    ▐░▌     ▐░▌    ▐░░░░░░░░░░░▌▐░▌  ▐░▌  ▐░▌     ▐░▌     ▐░░░░░░░░░░░▌
+--▐░█▀▀▀▀▀▀▀▀▀      ▐░▌   ▐░▌     ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌   ▐░▌ ▐░▌     ▐░▌      ▀▀▀▀▀▀▀▀▀█░▌
+--▐░▌                ▐░▌ ▐░▌      ▐░▌          ▐░▌    ▐░▌▐░▌     ▐░▌               ▐░▌
+--▐░█▄▄▄▄▄▄▄▄▄        ▐░▐░▌       ▐░█▄▄▄▄▄▄▄▄▄ ▐░▌     ▐░▐░▌     ▐░▌      ▄▄▄▄▄▄▄▄▄█░▌
+--▐░░░░░░░░░░░▌        ▐░▌        ▐░░░░░░░░░░░▌▐░▌      ▐░░▌     ▐░▌     ▐░░░░░░░░░░░▌
+-- ▀▀▀▀▀▀▀▀▀▀▀          ▀          ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀       ▀       ▀▀▀▀▀▀▀▀▀▀▀ 
+                                                                                    
 --Building
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, function(event)
     local entity = event.created_entity

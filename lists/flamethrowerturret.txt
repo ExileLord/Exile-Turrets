@@ -19,17 +19,18 @@ FlamethrowerTurretName
     "{FlamethrowerTurretAdjective} {AlienNoun} {FlamethrowerTurretNoun}",
     "{FlamethrowerTurretAdjective} {CountryAdjective} {FlamethrowerTurretNoun}",
     "{AlienNoun} {FireNoun}",
+    [0.1]"{GenericTurretName}",
 }
 
 FlamethrowerTurretAdjective
 {
-    "{FireAdjective}",
+    [1.5]"{FireAdjective}",
     "{GloryAdjective}",
 }
 
 FlamethrowerTurretNoun
 {
-    "{FireNoun}",
+    [1.5]"{FireNoun}",
     "{KillerNoun}",
     "{WeaponPersonNoun}",
 }
