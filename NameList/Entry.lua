@@ -84,7 +84,7 @@ function Entry:parse(str)
         --Insert list chunk
         if listChunk ~= nil then
             listChunk = replace_escape_sequences(listChunk)
-            local piece = EntryPiece.new{text=listChunk, is_list=true}
+            local piece = EntryPiece.new{text = listChunk, is_list = true}
             table.insert(self.entries, piece)
             table.insert(self.referenced_lists, listChunk)
             --self.references[listChunk] = (self.references[listChunk] or 0) + 1
@@ -99,7 +99,7 @@ end
 
 function Entry:toString(master_list)
     local s = ""
-
+    --TODO: Profile string concatenation vs table.concat
     for i, entry in ipairs(self.entries) do
         if (entry.is_list) then
             s = s .. entry:toList(master_list):randomName(master_list)

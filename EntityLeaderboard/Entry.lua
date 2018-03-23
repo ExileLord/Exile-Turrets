@@ -1,17 +1,18 @@
-local TurretEntry = {}
+local Entry = {}
 
 
-function TurretEntry.new(o)
+function Entry.new(o)
     o = o or {}
     assert(o.keys ~= nil)
+    --o.entity
     o.rank = {}
-    o.score = {}
+    o.value = {}
     for k in pairs(o.keys) do
         o.rank[key] = 0
-        o.score[key] = 0
+        o.value[key] = 0
     end
     return o
 end
 
 
-return TurretEntry
+return Entry
