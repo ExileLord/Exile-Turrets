@@ -1,7 +1,7 @@
-NameList = NameList or {}
-NameList.Token = NameList.Token or {}
+--NameList = NameList or {}
+--NameList.Token = NameList.Token or {}
 
-local Token = NameList.Token
+local Token = {} --{NameList.Token}
 
 
 Token.types = 
@@ -34,10 +34,10 @@ Token.type_names =
     [Token.types.comment] = "Comment"
 }
 
-
-
 function Token.new(o)
     o = o or {}
     assert(o.type ~= nil, "Tokens must have a type associated with them.")
     return o
 end
+
+return Token

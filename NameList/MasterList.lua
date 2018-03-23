@@ -1,21 +1,16 @@
-require "NameList.Parser"
+local MasterList = {}
 
 
-NameList = NameList or {}
-NameList.MasterList = NameList.MasterList or {}
-
-local Parser = NameList.Parser
-local MasterList = NameList.MasterList
-
+local instance_metatable = {__index = MasterList}
 function MasterList.new(o)
     o = o or {}
     o.lists = o.lists or {}
-    setmetatable(o, {__index = MasterList})
+    setmetatable(o, instance_metatable)
     return o
 end
 
 function MasterList.repairMetatable(o)
-    setmetatable(o, {__index = MasterList})
+    setmetatable(o, instance_metatable)
     for k, list in pairs(o.lists) do
         NameList.repairMetatable(list)
     end
@@ -65,8 +60,4 @@ function MasterList.merge(master_list_1, master_list_2)
     error("Not implemented")
 end
 
--- Parses a NameList text
--- returns a MasterList
-function MasterList.parse(text)
-    return Parser.parse(text)
-end
+return MasterList

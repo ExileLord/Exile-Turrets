@@ -1,15 +1,14 @@
-require "NameList.Lexer"
-
-NameList = NameList or {}
-NameList.Entry = NameList.Entry or {}
-
-local Lexer = NameList.Lexer
-local Entry = NameList.Entry
+local Lexer = require "NameList.Lexer"
+local Entry = {}
 local EntryPiece = {}
+local StringParsing = require "StringParsing"
+local replace_escape_sequences = StringParsing.replaceEscapeSequences
+local find_unescaped = StringParsing.findUnescaped
 
+local entry_piece_instance_metatable = {__index = EntryPiece}
 function EntryPiece.new(o)
     o = o or {}
-    setmetatable(o, {__index = EntryPiece})
+    setmetatable(o, entry_piece_instance_metatable)
     --is_list
     --text
     return o
@@ -20,11 +19,12 @@ function EntryPiece:toList(master_list)
     return master_list:get(self.text)
 end
 
+local instance_metatable = {__index = Entry}
 function Entry.new(o)
     o = o or {}
     o.entries = o.entries or {} --List of EntryPiece objects to construct a string with
     o.referenced_lists = o.referenced_lists or {} --Table of with list names as key and number of references as value
-    setmetatable(o, {__index = Entry} )
+    setmetatable(o, instance_metatable )
 
     if o.text ~= nil then
         o:parse(o.text)
@@ -34,50 +34,19 @@ function Entry.new(o)
 end
 
 function Entry.repairMetatable(o)
-    setmetatable(o, {__index = Entry})
+    setmetatable(o, instance_metatable)
     for k, piece in pairs(o.entries) do
-        setmetatable(piece, {__index = EntryPiece})
+        setmetatable(piece, entry_piece_instance_metatable)
     end
 end
 
-local replacement_sequence_table =
-{
-    ["\\"] = "\\",
-    ["{"] = "{",
-    ["}"] = "}",
-    ["\""] = "\"",
-}
-
-local function replace_escape_sequences(s)
-    local sb = {}
-    local next_index = 1
-    while true do
-        local escape_index = string.find(s, "\\", next_index)
-        if escape_index ~= nil then
-            local c = string.sub(s, escape_index+1, escape_index+1)
-            assert(c ~= nil, "Unmatched escape sequence found at end of line")
-            local replacement = replacement_sequence_table[c]
-            assert(replacement ~= nil, "Invalid escape sequence")
-
-            table.insert(sb, string.sub(s, next_index, escape_index-1))
-            table.insert(sb, replacement)
-            next_index = escape_index + 2
-        else
-            table.insert(sb, string.sub(s, next_index))
-            break
-        end
-    end
-
-    local new_string = table.concat(sb)
-    return new_string
-end
 
 function Entry:parse(str)
 
     local next_index = 1
     while true do
-        list_open_index = Lexer.findUnescaped(str, "{", next_index)
-        list_close_index = Lexer.findUnescaped(str, "}", next_index)
+        list_open_index = find_unescaped(str, "{", next_index)
+        list_close_index = find_unescaped(str, "}", next_index)
 
         --Ensure all lists references are well formed
         if  list_close_index ~= nil and (list_open_index > list_close_index) then
@@ -141,3 +110,5 @@ function Entry:toString(master_list)
 
     return s
 end
+
+return Entry

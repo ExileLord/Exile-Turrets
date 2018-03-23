@@ -1,27 +1,18 @@
-require "NameList.Lexer"
-require "NameList.Parser"
-require "NameList.Entry"
-require "NameList.InnerList"
+local NameList = {}
 
-
-NameList = NameList or {}
-MasterList = NameList.MasterList or {}
-
-local Parser = NameList.Parser
-local InnerList = NameList.InnerList
-local SimpleList = NameList.SimpleList
-local ComplexList = NameList.ComplexList
-local MasterList = NameList.MasterList
+local SimpleList = require "NameList.SimpleInnerList"
+local ComplexList = require "NameList.ComplexInnerList"
 
 
 -- NameList, a random name generator
+local instance_metatable = {__index = NameList}
 function NameList.new(o)
     --List must have a name
     if (o == nil or o.name == nil) then
         error("NameList constructor called without a valid name parameter.")
     end
 
-    setmetatable(o, {__index = NameList})
+    setmetatable(o, instance_metatable)
 
     o.simple_list = SimpleList.new()
     o.complex_list = ComplexList.new()
@@ -33,7 +24,7 @@ function NameList.repairMetatable(o)
     if getmetatable(o) ~= nil then
         return
     end
-    setmetatable(o, {__index = NameList})
+    setmetatable(o, instance_metatable)
     SimpleList.repairMetatable(o.simple_list)
     ComplexList.repairMetatable(o.complex_list)
 end
@@ -70,8 +61,4 @@ function NameList:randomName(master_list)
     return name
 end
 
--- Parses a NameList text
--- returns a MasterList
-function NameList.parse(text)
-    return Parser.parse(text)
-end
+return NameList

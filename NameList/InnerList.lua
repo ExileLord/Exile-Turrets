@@ -1,24 +1,5 @@
---require "NameList.Lexer"
---require "NameList.Parser"
-require "NameList.Entry"
-require "NameList.MasterList"
-require "NameList.Expression"
-
-
-NameList = NameList or {}
-
-NameList.InnerList = NameList.InnerList or {}
-NameList.SimpleList = NameList.SimpleList or {}
-NameList.ComplexList = NameList.ComplexList or {}
-
-local InnerList = NameList.InnerList
-local SimpleList = NameList.SimpleList
-local ComplexList = NameList.ComplexList
-local Entry = NameList.Entry
-local Expression = NameList.Expression
-
-setmetatable(SimpleList, {__index = InnerList})
-setmetatable(ComplexList, {__index = InnerList})
+local InnerList = {}
+local Entry = require "NameList.Entry"
 
 
 --[[
@@ -124,73 +105,7 @@ function InnerList:weight(master_list)
     return self.total_weight
 end
 
+return InnerList
 
---[[
-    SimpleList
-    A list that has only numeric weights meaning that unless elements are added to the list,
-    its weight table will never need to be recalculated
 
-    Ex.
-    "{AnimalAdjective} {Animal Name}"       #Explict weight is omitted, implicily assumed to be 1
-    [2] "{AnimalAdjective} {Animal Name}"   #Explict weight is 2
-    [2 + 5] "{First} {Second} {Third}"      #Explict weight is 7
---]]
-function SimpleList.new(o)
-    o = InnerList.new(o)
-    setmetatable(o, {__index = SimpleList})
-    return o
-end
 
-function SimpleList.repairMetatable(o)
-    InnerList.repairMetatable(o)
-    setmetatable(o, {__index = SimpleList})
-end
-
-function SimpleList:buildWeightTable()
-    self:purgeWeightTable()
-    local total_weight = 0
-    for i, weight in ipairs(self.weights) do
-        if type(weight) ~="table" then
-            weight = 1 
-        else
-            weight = Expression.evaluate(weight)
-        end
-        total_weight = total_weight + weight
-        table.insert(self.running_weight, total_weight)
-    end
-    self.total_weight = total_weight
-end
-
---[[
-    ComplexList
-    A list that has only entries with weights dependent on the weights of the lists referenced in those entries.
-    This means that this list's weight table needs to be recalculated if any elements are ever added to a dependent.
-    Weights in this list are expressions which can be understood in more detail in NameList.Expression.lua
-
-    Ex.
-    [%1 * %2] "{AnimalAdjective} {Animal Name}"
-    [%2 + 5] "{First} {Second} {Third}"
---]]
-function ComplexList.new(o)
-    o = InnerList.new(o)
-    setmetatable(o, {__index = ComplexList})
-    return o
-end
-
-function ComplexList.repairMetatable(o)
-    InnerList.repairMetatable(o)
-    setmetatable(o, {__index = ComplexList})
-end
-
--- This is incomplete and/or wrong. I am leaving this here only to avoid butchering the main code
-function ComplexList:buildWeightTable(master_list)
-    self:purgeWeightTable()
-    local total_weight = 0
-    for i, weight in ipairs(self.weights) do
-        --calculate weight from token list here and make additional recursive build weight table calls
-        local entry = self.entries[i]
-        total_weight = total_weight + Expression.evaluate(weight, entry.referenced_lists, master_list)
-        table.insert(self.running_weight, total_weight)
-    end
-    self.total_weight = total_weight
-end

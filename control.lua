@@ -1,14 +1,15 @@
 require "hover_text"
 require "turrets"
 require "gui"
-require "NameList"
+
 
 --Currently the only
 local default_name_list_text = require("default_name_list")
-
+local Parser = require "NameList.Parser"
+local MasterList = require "NameList.MasterList"
 
 script.on_init(function()
-    global.master_list = global.master_list or NameList.parse(default_name_list_text)
+    global.master_list = global.master_list or Parser.parse(default_name_list_text)
     hover_text_initialize()
     turrets_initialize()
     gui_initialize()

@@ -19,21 +19,17 @@ end
 --TODO: Check extensively for correctness
 function entities_are_friendly(entity1, entity2, force2)
     if entity1 == nil then
-        --debug_print("entity1 is nil")
         return false
     end
     local force1 = entity1.force
 
     if force2 == nil and entity2 ~= nil then
-        --debug_print("inheriting force2 from entity2")
         force2 = entity2.force
     end
-    if force2==nil then
-        --debug_print("force2 is nil")
+    if force2 == nil then
         return false
     end
 
-    --debug_print("same force check")
     if force1.name == force2.name then
         return true
     end
@@ -51,8 +47,8 @@ end
 
 function debug_print(text)
     --FIXME
-
-    for k, player in pairs(game.players) do
-        player.print(text)
+    if game==nil then
+        return
     end
+    game.print(text)
 end

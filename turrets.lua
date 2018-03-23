@@ -1,5 +1,4 @@
 require("helpers")
-require("NameList")
 
 Turret = Turret or {}
 

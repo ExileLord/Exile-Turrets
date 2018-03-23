@@ -1,35 +1,39 @@
 -- The parser that generates a series of name lists (a master list) from a set of lexed tokens
 
-require "NameList.Token"
-require "NameList.Lexer"
-require "NameList.Entry"
-require "NameList.Expression"
+local Parser = {}
+local NameList = require "NameList"
+local Token = require "NameList.Token"
+local Lexer = require "NameList.Lexer"
+local Entry = require "NameList.Entry"
+local Expression = require "NameList.Expression"
+local MasterList = require "NameList.MasterList"
 
-NameList = NameList or {}
-NameList.Parser = NameList.Parser or {}
-NameList.MasterList = NameList.MasterList or {}
+local assert = assert
+local token_types = Token.types
 
-local Token = NameList.Token
-local Parser = NameList.Parser
-local Lexer = NameList.Lexer
-local Entry = NameList.Entry
-local Expression = NameList.Expression
-local MasterList = NameList.MasterList
+--local type_separator = token_types.separator
 
 local function parse_pure_entry(list, start)
     local entry = Entry.new()
     local i = start
     local token = list[i]
-    local s = ""
+    local s
 
     -- Multiple strings will be concatenated
     repeat
         assert(token ~= nil, "Reached end of file while parsing list entry.")
-        assert(token.type == Token.types.string, "Found unexpected" .. Token.type_names[token.type] .. " while parsing list entry. Expected comma separator or string.")
-        s = s .. token.value --naive concatenation should be find
+        if token.type ~= token_types.string then
+             error("Found unexpected" .. Token.type_names[token.type] .. " while parsing list entry. Expected comma separator or string.")
+        end
+
+        if s == nil then 
+            s = token.value
+        else
+            s = s .. token.value -- should be rare
+        end
         i = i + 1
         token = list[i]
-    until token.type == Token.types.separator or token.type == Token.types.list_block
+    until token.type == token_types.separator or token.type == token_types.list_block
 
     entry:parse(s)
 
@@ -42,12 +46,12 @@ end
 local function parse_weight(list, start)
     local i = start
     local token = list[i]
-    assert(token ~= nil and token.type == Token.types.weight_block and token.value == "[", "Error parsing weight block.")
+    assert(token ~= nil and token.type == token_types.weight_block and token.value == "[", "Error parsing weight block.")
     while token~=nil do
         i = i + 1
         token = list[i]
         assert(token ~= nil, "Reached end of file while parsing weight block.")
-        if token.type == Token.types.weight_block then
+        if token.type == token_types.weight_block then
             assert(token.value == "]", "Cannot nest weight blocks inside of a weight block.")
             break
         end
@@ -69,7 +73,7 @@ local function parse_entry(list, start)
     local weight, entry
 
     assert(token ~= nil, "Reached end of file while parsing list entry.")
-    if token.type == Token.types.weight_block then
+    if token.type == token_types.weight_block then
         weight, i = parse_weight(list, i)
     end
 
@@ -85,7 +89,7 @@ local function parse_list(list, start)
     local token = list[i]
     local name_list
 
-    assert(token.type == Token.types.identifier, "Error while parsing name list. Expected identifier")
+    assert(token.type == token_types.identifier, "Error while parsing name list. Expected identifier")
     local name = token.value
 
     name_list = NameList.new{name=name}
@@ -98,8 +102,8 @@ local function parse_list(list, start)
     --Parse list content
     i = i + 1
     token = list[i]
-    while token.type ~= Token.types.list_block do
-        if (token.type ~= Token.types.separator) then
+    while token.type ~= token_types.list_block do
+        if (token.type ~= token_types.separator) then
             local weight, entry
             weight, entry, i = parse_entry(list, i)
             name_list:add(entry, weight)
@@ -124,7 +128,8 @@ function Parser.parse(s)
     local token = token_list[i]
 
     local master_list = MasterList.new()
-    while token ~= nil and token.type ~= Token.types.eof do
+    local eof = token_types.eof
+    while token ~= nil and token.type ~= eof do
         local name_list
         name_list, i = parse_list(token_list, i)
         master_list:add(name_list)
@@ -134,3 +139,4 @@ function Parser.parse(s)
     return master_list
 end
 
+return Parser
