@@ -13,6 +13,7 @@ local modules = {
     require("modules.MasterList"),
     require("modules.LeaderboardUpdater"),
     require("modules.EntityHover"),
+    require("modules.GuiLeaderboardManager")
 }
 
 local function create_multifunction_handler(functions)

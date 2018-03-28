@@ -4,10 +4,22 @@
 local EntityLeaderboard = require "lib.EntityLeaderboard"
 local Entry = require "lib.EntityLeaderboard.Entry"
 local EntityTools = require "lib.EntityTools"
+local Events = require "lib.Events"
+
 local LeaderboardUpdater = {}
 
 --constants
-local LEADERBOARD_KEYS = {"kills", "damage_dealt", "damage_taken", "name", "kill_reason"}
+local LEADERBOARD_KEYS = 
+{
+    "kills",
+    "damage_dealt",
+    "damage_taken",
+    "name",
+    "kill_reason"
+}
+
+local EVENT_LEADERBOARD_UPDATED = Events.leaderboard_updated
+
 local MAX_NAME_REGENERATION_ATTEMPTS = 7
 
 --locals
@@ -198,6 +210,8 @@ end
 
 
 
+
+
 -- ▄▄▄▄▄▄▄▄▄▄▄  ▄               ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ 
 --▐░░░░░░░░░░░▌▐░▌             ▐░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌
 --▐░█▀▀▀▀▀▀▀▀▀  ▐░▌           ▐░▌ ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌░▌     ▐░▌ ▀▀▀▀█░█▀▀▀▀ ▐░█▀▀▀▀▀▀▀▀▀ 
@@ -210,8 +224,6 @@ end
 --▐░░░░░░░░░░░▌        ▐░▌        ▐░░░░░░░░░░░▌▐░▌      ▐░░▌     ▐░▌     ▐░░░░░░░░░░░▌
 -- ▀▀▀▀▀▀▀▀▀▀▀          ▀          ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀       ▀       ▀▀▀▀▀▀▀▀▀▀▀ 
                                                                                     
-
-
 local function cache_globals()
     leaderboard = global.leaderboard
     master_list = global.master_list  
@@ -237,8 +249,8 @@ end
 
 --Events
 local function on_entity_built(event)
-    local entity = event.entity
-    if entity ~= nil and EntityTools.isTurret(entity) then
+    local entity = event.created_entity 
+    if entity ~= nil and is_turret(entity) then
         add_turret(entity)
     end
 end
@@ -247,14 +259,12 @@ local function on_turret_kill(event)
     local turret = event.cause
     local victim = event.entity
     local entry = leaderboard:getByEntity(turret)
-    --local old_rank = entry.rank.kills
+    
+    local new_event = { old_rank = entry.rank.kills }
     leaderboard:modify(entry, "kills", entry.value.kills + 1)
-    --local new_rank = entry.rank.kills
-    --local rank_string = ""
-    --if new_rank ~= old_rank then
-    --    rank_string = string.format("New rank: %d", new_rank)
-    --end
-    --game.print(string.format("Turret \"%s\" killed %s. Kills: %d %s", entry.value.name, victim.name, entry.value.kills, rank_string))
+    new_event.new_rank = entry.rank.kills
+    new_event.key = "kills"
+    script.raise_event(EVENT_LEADERBOARD_UPDATED, new_event)
 end
 
 local function on_turret_died(event)
@@ -282,6 +292,13 @@ local function on_turret_damaged(event)
 end
 
 local function on_entity_damaged(event)
+    if is_turret(event.cause) then
+        on_turret_dealt_damage(event)
+    end
+
+    if is_turret(event.entity) then
+        on_turret_damaged(event)
+    end
 end
 
 

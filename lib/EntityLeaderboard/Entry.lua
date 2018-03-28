@@ -1,6 +1,5 @@
 local Entry = {}
 
-
 function Entry.new(o)
     o = o or {}
     --o.entity

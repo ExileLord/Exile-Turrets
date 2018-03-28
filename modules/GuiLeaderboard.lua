@@ -1,3 +1,0 @@
-local GuiLeaderboard = {}
-
-return GuiLeaderboard
