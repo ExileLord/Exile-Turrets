@@ -5,6 +5,8 @@ local prefix = "exile-leaderboard-"
 --Defaults
 Styles.label = prefix .. "default-label"
 Styles.frame = prefix .. "default-frame"
+Styles.table = prefix .. "table"
+Styles.scrollpane = prefix .. "scrollpane"
 
 --Header Buttons
 Styles.header_button = prefix .. "header-button"
@@ -22,7 +24,6 @@ Styles.name_rank3_label = prefix .. "name-rank3-label"
 --Names
 Styles.turret_preview = prefix .. "turret-preview"
 
-Styles.table = prefix .. "table"
-Styles.scrollpane = prefix .. "scrollpane"
+
 
 return Styles

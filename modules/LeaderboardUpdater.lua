@@ -18,7 +18,7 @@ local LEADERBOARD_KEYS =
     "kill_reason"
 }
 
-local EVENT_LEADERBOARD_UPDATED = Events.leaderboard_updated
+local EVENT_LEADERBOARD_UPDATED = Events.on_leaderboard_update
 
 local MAX_NAME_REGENERATION_ATTEMPTS = 7
 

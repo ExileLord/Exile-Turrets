@@ -2,7 +2,9 @@
 Names = {}
 
 Names.frame = "exile_leaderboard_frame"
+Names.header = "leaderboard_header"
 Names.scrollpane = "leaderboard_scroll_pane"
+Names.keys_table = "leaderboard_keys_table"
 Names.table = "leaderboard_table"
 
 Names.rank = "r"

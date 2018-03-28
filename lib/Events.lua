@@ -1,5 +1,5 @@
 local Events = {}
 
-Events.leaderboard_updated = script.generate_event_name()
+Events.on_leaderboard_update = script.generate_event_name()
 
 return Events

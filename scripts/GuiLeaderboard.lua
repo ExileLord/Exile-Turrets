@@ -9,7 +9,6 @@ local ALL_COLUMNS =
     "kills",
     "damage_dealt",
     "damage_taken",
-    "name",
     "kill_reason"
 }
 local DEFAULT_COLUMNS = {"kills"}
@@ -33,6 +32,7 @@ function GuiLeaderboard.new(o)
     --o.gui
     --o.table
     o.columns = o.columns or DEFAULT_COLUMNS
+    o.available_columns = o.available_columns or ALL_COLUMNS
     o.sort_key = o.sort_key or DEFAULT_SORT_KEY
     o.ascending = o.ascending or false
     setmetatable(o, _mt)
@@ -44,6 +44,12 @@ function GuiLeaderboard.repairMetatable(o)
 end
 
 function GuiLeaderboard:open()
+    if self.gui ~= nil then
+        return
+    end
+    self.gui = Builder.createGui(self)
+    self.player.opened = self.gui
+    return self.gui
 end
 
 function GuiLeaderboard:close()
@@ -54,9 +60,21 @@ function GuiLeaderboard:close()
 end
 
 function GuiLeaderboard:updateRows(start_row, end_row)
+    if self.gui == nil then
+        return
+    end
+    for row = start_row, end_row do
+        Mutator.updateRow(self, row)
+    end
+    --game.print("updateRows!")
 end
 
 function GuiLeaderboard:updateRow(row)
+    if self.gui == nil then
+        return
+    end
+    Mutator.updateRow(self, row)
+    --game.print("updateRow")
 end
 
 function GuiLeaderboard:addRow(row)
