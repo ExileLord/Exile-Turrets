@@ -247,14 +247,14 @@ local function on_turret_kill(event)
     local turret = event.cause
     local victim = event.entity
     local entry = leaderboard:getByEntity(turret)
-    local old_rank = entry.rank.kills
+    --local old_rank = entry.rank.kills
     leaderboard:modify(entry, "kills", entry.value.kills + 1)
-    local new_rank = entry.rank.kills
-    local rank_string = ""
-    if new_rank ~= old_rank then
-        rank_string = string.format("New rank: %d", new_rank)
-    end
-    game.print(string.format("Turret \"%s\" killed %s. Kills: %d %s", entry.value.name, victim.name, entry.value.kills, rank_string))
+    --local new_rank = entry.rank.kills
+    --local rank_string = ""
+    --if new_rank ~= old_rank then
+    --    rank_string = string.format("New rank: %d", new_rank)
+    --end
+    --game.print(string.format("Turret \"%s\" killed %s. Kills: %d %s", entry.value.name, victim.name, entry.value.kills, rank_string))
 end
 
 local function on_turret_died(event)
