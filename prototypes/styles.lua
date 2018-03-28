@@ -1,20 +1,21 @@
-local colors = require "lib.Colors"
+local colors = require("lib.Colors")
+local styles = require("lib.Styles")
 
 local style = data.raw["gui-style"]["default"]
 
 --Defaults
-style["exile-leaderboard-default-label"] =
+style[styles.label] =
 {
     type = "label_style",
     font = "default",
 }
-style["exile-leaderboard-default-frame"] =
+style[styles.frame] =
 {
     type = "frame_style",
 }
 
 --Header Buttons
-style["exile-leaderboard-header-button"] =
+style[styles.header_button] =
 {
     type = "button_style",
     font = "default",
@@ -23,64 +24,64 @@ style["exile-leaderboard-header-button"] =
 
 
 --Rank
-style["exile-leaderboard-rank-label"] =
+style[styles.rank_label] =
 {
-    parent = "exile-leaderboard-default-label",
+    parent = styles.label,
     type = "label_style",
 }
-style["exile-leaderboard-rank1-label"] =
+style[styles.rank1_label] =
 {
-    parent = "exile-leaderboard-rank-label",
+    parent = styles.rank_label,
     type = "label_style",
     font = "default-bold",
     font_color = colors.first_place
 }
-style["exile-leaderboard-rank2-label"] =
+style[styles.rank2_label] =
 {
-    parent = "exile-leaderboard-rank-label",
+    parent = styles.rank_label,
     type = "label_style",
     font = "default-bold",
     font_color = colors.second_place
 }
 
-style["exile-leaderboard-rank3-label"] =
+style[styles.rank3_label] =
 {
-    parent = "exile-leaderboard-rank-label",
+    parent = styles.rank_label,
     type = "label_style",
     font = "default-bold",
     font_color = colors.third_place
 }
 
 --Names
-style["exile-leaderboard-name-label"] =
+style[styles.name_label] =
 {
-    parent = "exile-leaderboard-default-label",
+    parent = styles.label,
     type = "label_style",
 }
-style["exile-leaderboard-name-rank1-label"] =
+style[styles.name_rank1_label] =
 {
-    parent = "exile-leaderboard-name-label",
+    parent = styles.name_label,
     type = "label_style",
     font = "default-bold",
     font_color = colors.first_place
 }
-style["exile-leaderboard-name-rank2-label"] =
+style[styles.name_rank2_label] =
 {
-    parent = "exile-leaderboard-name-label",
+    parent = styles.name_label,
     type = "label_style",
     font = "default-bold",
     font_color = colors.second_place
 }
-style["exile-leaderboard-name-rank3-label"] =
+style[styles.name_rank3_label] =
 {
-    parent = "exile-leaderboard-name-label",
+    parent = styles.name_label,
     type = "label_style",
     font = "default-bold",
     font_color = colors.third_place
 }
 
 --Picture
-style["exile-leaderboard-turret-preview"] =
+style[styles.turret_preview] =
 {
     type = "entity_button_style",
     height = 50,
@@ -90,7 +91,7 @@ style["exile-leaderboard-turret-preview"] =
 }
 
 --Tables
-style["exile-leaderboard-table"] =
+style[styles.table] =
 {
   type = "table_style",
   hovered_row_color = {
@@ -110,7 +111,7 @@ style["exile-leaderboard-table"] =
 }
 
 --Scrollpane
-style["exile-leaderboard-scrollpane"] =
+style[styles.scrollpane] =
 {
     type = "scroll_pane_style",
 }
