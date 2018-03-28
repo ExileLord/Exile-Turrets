@@ -11,11 +11,7 @@ local is_turret_tbl =
     ["fluid-turret"] = true,
 }
 function Misc.isTurret(e)
-    if e==nil then
-        return false
-    end
-
-    return is_turret_tbl[e.type] or false
+    return e~=nil and is_turret_tbl[e.type]
 end
 
 

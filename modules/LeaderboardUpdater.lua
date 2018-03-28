@@ -3,7 +3,7 @@
 
 local EntityLeaderboard = require "lib.EntityLeaderboard"
 local Entry = require "lib.EntityLeaderboard.Entry"
-local Misc = require "lib.EntityTools"
+local EntityTools = require "lib.EntityTools"
 local LeaderboardUpdater = {}
 
 --constants
@@ -14,6 +14,9 @@ local MAX_NAME_REGENERATION_ATTEMPTS = 7
 local leaderboard --cached global
 local master_list --cached global
 local names_in_use
+
+--cached functions
+is_turret = EntityTools.isTurret
 
 
 
@@ -235,19 +238,53 @@ end
 --Events
 local function on_entity_built(event)
     local entity = event.entity
-    if entity ~= nil and Misc.isTurret(entity) then
+    if entity ~= nil and EntityTools.isTurret(entity) then
         add_turret(entity)
     end
 end
 
-local function on_entity_died(event)
+local function on_turret_kill(event)
+    local turret = event.cause
+    local victim = event.entity
+    local entry = leaderboard:getByEntity(turret)
+    local old_rank = entry.rank.kills
+    leaderboard:modify(entry, "kills", entry.value.kills + 1)
+    local new_rank = entry.rank.kills
+    local rank_string = ""
+    if new_rank ~= old_rank then
+        rank_string = string.format("New rank: %d", new_rank)
+    end
+    game.print(string.format("Turret \"%s\" killed %s. Kills: %d %s", entry.value.name, victim.name, entry.value.kills, rank_string))
 end
+
+local function on_turret_died(event)
+end
+
+local function on_entity_died(event)
+    if is_turret(event.cause) then
+        on_turret_kill(event)
+    end
+
+    if is_turret(event.entity) then
+        on_turret_died(event)
+    end
+end
+
+
 
 local function on_entity_mined(event)
 end
 
+local function on_turret_dealt_damage(event)
+end
+
+local function on_turret_damaged(event)
+end
+
 local function on_entity_damaged(event)
 end
+
+
 
 
 
