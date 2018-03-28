@@ -1,9 +1,18 @@
-require "turrets"
+--TODO: modules
+require "scripts.turrets"
 
 
 local add_leaderboard_header, add_leaderboard_table, add_table_header
 local add_table_line, add_table_turret_rank, add_table_turret_entity, add_table_turret_name, add_table_turret_kills, add_table_turret_damage_dealt, add_table_turret_damage_taken
 
+
+local function screen_height(player)
+    return player.display_resolution.height
+end
+
+local function screen_width(player)
+    return player.display_resolution.width
+end
 
 function add_leaderboard_header(frame)
     return frame.add{type = "label", name = "leaderboard_title", caption = "Turret Rankings", style = "large_caption_label"} -- Place
@@ -72,6 +81,12 @@ function add_table_turret_name(gui_table, name, rank)
     }
 end
 
+local function create_leaderboard_frame(player)
+    local frame = player.gui.center.add{type = "frame", name = "exile_turrets_leaderboard", direction = "vertical", style = "exile-leaderboard-default-frame"}
+    local style = frame.style
+    style.maximal_height = player.display_resolution.height * 0.71
+    return frame
+end
 
 local leaderboard_gui
 function open_gui(player)
@@ -80,7 +95,7 @@ function open_gui(player)
         return
     end
 
-    local frame = player.gui.center.add{type = "frame", name = "exile_turrets_leaderboard3", direction = "vertical"}
+    local frame = create_leaderboard_frame(player)
     add_leaderboard_header(frame)
     local leaderboard_table = add_leaderboard_table(frame)
     add_table_header(leaderboard_table)

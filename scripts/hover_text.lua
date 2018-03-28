@@ -1,8 +1,10 @@
 --Handles hover text, eg when a player hovers over a turret
-require "helpers"
-require "turrets"
+--!deprecated
+require "scripts.helpers"
+require "scripts.turrets"
 
---TODO Fix
+
+
 
 local hover_text_instances
 
@@ -35,6 +37,10 @@ local function handle_focus_change(player)
 
     hover_text_instances[player.index] = flyingText
 end
+
+
+
+
 
 -- ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄ 
 --▐░░░░░░░░░░░▌▐░░▌      ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌

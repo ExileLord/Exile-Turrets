@@ -1,0 +1,3 @@
+local GuiLeaderboard = {}
+
+return GuiLeaderboard

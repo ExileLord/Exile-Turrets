@@ -1,7 +1,7 @@
 -- A mathematical expression that can be evaluated
 -- Used to represent weights in name lists
 
-local NameListToken = require "NameList.Token"
+local NameListToken = require "lib.NameList.Token"
 local ExpressionToken = {}
 local Expression = {}
 

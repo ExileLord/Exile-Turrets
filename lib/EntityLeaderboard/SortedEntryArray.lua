@@ -9,18 +9,25 @@ function SortedEntryArray.new(o)
     assert(o.key)
     setmetatable(o, instance_metatable)
     o.array = {}
+
+    return o
 end
 
-function SortedEntryArray.repair_metatable(o)
+function SortedEntryArray.repairMetatable(o)
     setmetatable(o, instance_metatable)
 end
 
 
 
 --find insertion point for new value
+--implemented as a binary search with some linear searching after it centers on a value to ensure it inserts into the last place spot on equal values
 local function search(sorted_entry_array, target_value)
     --[16, 14, 14, 14, 13, 12, 9, 3, 0] eg min is biggest
     local array = sorted_entry_array.array
+    if #array == 0 then
+        return 1
+    end
+    
     local key = sorted_entry_array.key
     local min = 1
     local max = #array
@@ -44,7 +51,7 @@ local function search(sorted_entry_array, target_value)
     end
 
     index = min
-    while index < #array do
+    while index <= #array do
         local value = array[index].value[key]
         if value < target_value then
             return index
@@ -57,10 +64,9 @@ end
 
 function SortedEntryArray:insert(entry)
     --Try lazy insert first since most inserts should be in last place
-    local index = search(sorted_entry_array, entry)
     local array = self.array
     local key = self.key
-
+    local index = search(self, entry.value[key])
     --Correct ranks of subsequent entries
     for i = index, #array do
         local rank = array[i].rank

@@ -1,6 +1,10 @@
-require("helpers")
+--!deprecated - moving to LeaderboardUpdater
+
+require("scripts.helpers")
+EntityLeaderboard = require "EntityLeaderboard"
 
 Turret = Turret or {}
+
 
 --locals
 local MAX_NAME_REGENERATION_ATTEMPTS = 7
@@ -10,6 +14,9 @@ local turret_leaderboard
 local turret_count
 local names_in_use
 local master_list
+
+--locals
+local leaderboard
 
 --Reason why a turret died
 local kill_reasons =

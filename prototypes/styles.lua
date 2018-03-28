@@ -1,4 +1,5 @@
-local colors = require "shared_colors"
+local colors = require "lib.Colors"
+
 local style = data.raw["gui-style"]["default"]
 
 --Defaults
@@ -6,6 +7,10 @@ style["exile-leaderboard-default-label"] =
 {
     type = "label_style",
     font = "default",
+}
+style["exile-leaderboard-default-frame"] =
+{
+    type = "frame_style",
 }
 
 --Header Buttons
@@ -108,5 +113,4 @@ style["exile-leaderboard-table"] =
 style["exile-leaderboard-scrollpane"] =
 {
     type = "scroll_pane_style",
-    height = 1024
 }

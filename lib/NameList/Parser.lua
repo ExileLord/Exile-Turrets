@@ -1,12 +1,12 @@
 -- The parser that generates a series of name lists (a master list) from a set of lexed tokens
 
 local Parser = {}
-local NameList = require "NameList"
-local Token = require "NameList.Token"
-local Lexer = require "NameList.Lexer"
-local Entry = require "NameList.Entry"
-local Expression = require "NameList.Expression"
-local MasterList = require "NameList.MasterList"
+local NameList = require "lib.NameList"
+local Token = require "lib.NameList.Token"
+local Lexer = require "lib.NameList.Lexer"
+local Entry = require "lib.NameList.Entry"
+local Expression = require "lib.NameList.Expression"
+local MasterList = require "lib.NameList.MasterList"
 
 local assert = assert
 local token_types = Token.types

@@ -1,7 +1,7 @@
-local InnerList = require "NameList.InnerList"
+local InnerList = require "lib.NameList.InnerList"
 local SimpleList = {}
 setmetatable(SimpleList, {__index = InnerList})
-local Expression = require "NameList.Expression"
+local Expression = require "lib.NameList.Expression"
 
 --[[
     SimpleList

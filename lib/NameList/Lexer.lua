@@ -1,8 +1,8 @@
 -- Responsible for lexing a text into a series of tokens to be parsed by the Parser
 
 local Lexer = {}
-local Token = require "NameList.Token"
-local StringParsing = require "StringParsing"
+local Token = require "lib.NameList.Token"
+local StringParsing = require "lib.StringParsing"
 local find_unescaped = StringParsing.findUnescaped
 
 local sub = string.sub

@@ -1,7 +1,7 @@
 local NameList = {}
 
-local SimpleList = require "NameList.SimpleInnerList"
-local ComplexList = require "NameList.ComplexInnerList"
+local SimpleList = require "lib.NameList.SimpleInnerList"
+local ComplexList = require "lib.NameList.ComplexInnerList"
 
 
 -- NameList, a random name generator

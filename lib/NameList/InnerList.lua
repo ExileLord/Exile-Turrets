@@ -1,5 +1,5 @@
 local InnerList = {}
-local Entry = require "NameList.Entry"
+local Entry = require "lib.NameList.Entry"
 
 
 --[[

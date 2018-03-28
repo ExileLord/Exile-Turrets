@@ -1,5 +1,7 @@
 --various helper functions used by different areas of code
 
+local Misc = {}
+
 local is_turret_tbl = 
 {
     ["ammo-turret"] = true,
@@ -8,16 +10,17 @@ local is_turret_tbl =
     ["electric-turret"] = true,
     ["fluid-turret"] = true,
 }
-function is_turret(e)
+function Misc.isTurret(e)
     if e==nil then
         return false
     end
 
-    return is_turret_tbl[e.type]
+    return is_turret_tbl[e.type] or false
 end
 
+
 --TODO: Check extensively for correctness
-function entities_are_friendly(entity1, entity2, force2)
+function Misc.entitiesAreFriendly(entity1, entity2, force2)
     if entity1 == nil then
         return false
     end
@@ -45,10 +48,4 @@ function entities_are_friendly(entity1, entity2, force2)
     return false
 end
 
-function debug_print(text)
-    --FIXME
-    if game==nil then
-        return
-    end
-    game.print(text)
-end
+return Misc

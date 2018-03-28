@@ -1,5 +1,5 @@
 local MasterList = {}
-
+local NameList = require("lib.NameList")
 
 local instance_metatable = {__index = MasterList}
 function MasterList.new(o)

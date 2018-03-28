@@ -1,8 +1,8 @@
 LaserTurretName
 {
     "{LaserAdjective} {LaserNoun}",
-    [0.2]"{HumanFirstName} {VersionSuffix}",
-    [0.1]"{GenericTurretName}",
+    [0.1]"{HumanFirstName} {VersionSuffix}",
+    [0.2]"{GenericTurretName}",
 }
 
 LaserAdjective

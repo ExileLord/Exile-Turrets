@@ -13,7 +13,6 @@
 #   ██║   ██║  ██║██║  ██║╚██████╔╝╚███╔███╔╝███████╗██║  ██║
 #   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝
 
-#Flamethrower Turret Name
 FlamethrowerTurretName
 {
     "{FlamethrowerTurretAdjective} {AlienNoun} {FlamethrowerTurretNoun}",

@@ -1,7 +1,10 @@
-local Lexer = require "NameList.Lexer"
+-- An entry in a name list
+-- Can reference other name lists
+
+local Lexer = require "lib.NameList.Lexer"
 local Entry = {}
 local EntryPiece = {}
-local StringParsing = require "StringParsing"
+local StringParsing = require "lib.StringParsing"
 local replace_escape_sequences = StringParsing.replaceEscapeSequences
 local find_unescaped = StringParsing.findUnescaped
 
