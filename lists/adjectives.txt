@@ -1,3 +1,5 @@
+#Generic adjectives used in multiple lists
+
 ScaryAdjective
 {
     "Scary",

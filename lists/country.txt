@@ -1,30 +1,35 @@
+#Goofy names should be rare
+#More common country names should be more common in the list
+
 CountryNoun
 {
-    "America",
-    "Freedomland",
-    "Gunland",
-    "Gunistan",
-    "Guntopia",
+    [3]"America",
+    [0.1]"Freedomland",
+    [0.1]"Gunland",
+    [0.1]"Gunistan",
+    [0.1]"Guntopia",
     "Africa",
-    "Chicago",
-    "Detroit",
+    [0.5]"Chicago",
+    [0.5]"Detroit",
     "Britain",
     "Australia",
-    "Kangarooland",
-    "Russia",
-    "China",
-    "Japan",
+    "France",
+    [0.1]"Kangarooland",
+    [2]"Russia",
+    [1.5]"China",
+    [1.5]"Japan",
 }
 
 CountryAdjective
 {
-    "American",
-    "Gunlandian",
-    "Gunistanian",
+    [3]"American",
+    [0.1]"Gunlandian",
+    [0.1]"Gunistanian",
     "African",
     "British",
     "Australian",
-    "Russian",
-    "Chinese",
-    "Japanese",
+    "French",
+    [2]"Russian",
+    [1.5]"Chinese",
+    [1.5]"Japanese",
 }

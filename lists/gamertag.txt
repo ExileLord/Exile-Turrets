@@ -9,6 +9,7 @@ MlgOuter
     "-={MlgInner}=-",
     "xX{MlgInner}Xx",
     "XxX{MlgInner}XxX",
+    "XxX{MlgInner}XxX",
     ".:{MlgInner}:.",
     ".::{MlgInner}::.",
 }
@@ -23,7 +24,7 @@ GT_CoreName
     "{GT_PowerfulBeing}{GT_Joiner}{GT_Slayer}",
     "{GT_CoolWord}{GT_Joiner}{GT_Slayer}",
     "{ColorAdjective}{GT_Joiner}{GT_CoolWord}",
-    "{AnimalAlliterationName}",
+    #"{AnimalAlliterationName}",
 }
 
 GT_Joiner

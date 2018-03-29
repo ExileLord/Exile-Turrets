@@ -1,0 +1,33 @@
+#Work in progress
+
+#This should be a food that you can use as a suffix with anything
+#Eg "Lead Lunch", "9mm Dessert"
+GenericFoodDishNoun
+{
+    [0.8]"Dinner",
+    "Lunch",
+    "Breakfast",
+    [1.3]"Dessert",
+    [0.8]"Sandwich",
+    [0.8]"Burger",
+}
+
+BreakfastNoun
+{
+    "Pancakes",
+    "Muffins",
+    "Waffles",
+    "Eggs",
+    "Bacons",
+}
+
+LunchNoun
+{
+    "Sandwich",
+}
+
+DinnerNoun
+{
+    "Burger",
+    "Steak",
+}

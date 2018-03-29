@@ -15,73 +15,155 @@
 
 FlamethrowerTurretName
 {
-    "{FlamethrowerTurretAdjective} {AlienNoun} {FlamethrowerTurretNoun}",
-    "{FlamethrowerTurretAdjective} {CountryAdjective} {FlamethrowerTurretNoun}",
-    "{AlienNoun} {FireNoun}",
-    [0.1]"{GenericTurretName}",
+    [3] "{OptionalFlamethrowerTurretAdjective}{AlienNoun} {FireKillerNoun}",
+    [1.3] "{FireAdjective} {AlienNoun} {KillerNoun}",
+    [1] "{FireAdjective} {WeaponPersonNoun}",
+    [2.8] "{FireAnimalAlliterationName}",
+    [0.1] "{HumanFirstName} \"{AlienNoun} {FireKillerNoun}\" {HumanLastName}",
 }
 
-FlamethrowerTurretAdjective
+OptionalFlamethrowerTurretAdjective
 {
-    [1.5]"{FireAdjective}",
-    "{GloryAdjective}",
+    "",
+    [1.5]"{FireAdjective} ",
+    [0.7]"{GloryAdjective} ",
+    [0.3]"{CountryAdjective} ",
 }
 
-FlamethrowerTurretNoun
+FireAnimalAlliterationName
 {
-    [1.5]"{FireNoun}",
-    "{KillerNoun}",
-    "{WeaponPersonNoun}",
+    [%1 * %2]    "{Fire_B_Adjective} {B_AnimalNoun}",
+    [%1 * %2]    "{Fire_F_Adjective} {F_AnimalNoun}",
+    [%1 * %2]    "{Fire_G_Adjective} {G_AnimalNoun}",
+    [%1 * %2]    "{Fire_H_Adjective} {H_AnimalNoun}",
+    [%1 * %2]    "{Fire_I_Adjective} {I_AnimalNoun}",
+    [%1 * %2]    "{Fire_M_Adjective} {M_AnimalNoun}",
+    [%1 * %2]    "{Fire_R_Adjective} {R_AnimalNoun}",
+    [%1 * %2]    "{Fire_S_Adjective} {S_AnimalNoun}",
+    [%1 * %2]    "{Fire_T_Adjective} {T_AnimalNoun}",
+    [%1 * %2]    "{Fire_W_Adjective} {W_AnimalNoun}",
 }
 
 #Intended for flamethrower turret
 FireAdjective
 {
-    "Hot",
-    "Spicy",
-    "Spiced",
-    "Habanero",
-    "Burning",
-    "Toasty",
-    "Toasted",
-    "Warm",
-    "Blazing",
-    "Heated",
-    "Sweltering",
-    "Sizzling",
-    "Scorching",
-    "Scorched",
-    "Broiling",
-    "Broiled",
-    "Roasting",
-    "Roasted",
-    "Igneous",
-    "Smoking",
-    "Smoked",
-    "Smoldering",
-    "Blistering",
-    "Fiery",
-    "Sunny",
-    "Glowing",
-    "Boiling",
-    "Incendiary",
-    "Molten",
+    [%1]"{Fire_B_Adjective}",
+    [%1]"{Fire_F_Adjective}",
+    [%1]"{Fire_G_Adjective}",
+    [%1]"{Fire_H_Adjective}",
+    [%1]"{Fire_I_Adjective}",
+    [%1]"{Fire_M_Adjective}",
+    [%1]"{Fire_R_Adjective}",
+    [%1]"{Fire_S_Adjective}",
+    [%1]"{Fire_T_Adjective}",
+    [%1]"{Fire_W_Adjective}",
 }
 
-FireNoun
+Fire_B_Adjective
+{
+    "Blazing",
+    "Blistering",
+    "Boiling",
+    "Broiled",
+    "Broiling",
+    "Burning",
+}
+Fire_F_Adjective
+{
+    "Fire",
+    "Flaming",
+    "Fiery",
+}
+Fire_G_Adjective
+{
+    "Glowing",
+}
+Fire_H_Adjective
+{
+    "Habanero",
+    "Heated",
+    "Hot",
+}
+Fire_I_Adjective
+{
+    "Igneous",
+    "Incendiary",
+    "Incinerating",
+}
+Fire_M_Adjective
+{
+    "Molten",
+}
+Fire_R_Adjective
+{    
+    "Roasted",
+    "Roasting",
+}
+Fire_S_Adjective
+{    
+    "Scorched",
+    "Scorching",
+    "Sizzling",
+    "Smoked",
+    "Smoking",
+    "Smoldering",
+    "Spiced",
+    "Spicy",
+    "Sunny",
+    "Sweltering",
+}
+
+Fire_T_Adjective
+{    
+    "Toasted",
+    "Toasty",
+}
+
+Fire_W_Adjective
+{
+    "Warm",
+}
+
+
+FireKillerNoun
 {
     "Oven",
     "Furnace",
-    "Bonfire",
-    "Microwave",
-    "Cauldron",
     "Crucible",
     "Pyre",
-    "Torch",
-    "Pyro",
     "Roaster",
     "Scorcher",
+    "Smoker",
     "Melter",
     "Burner",
+    "Incinerator",
+    "Igniter",
+    "Crematory",
+    "Cremator",
+    "Combuster",
+    "Barbeque",
+    "Cooker",
 }
 
+HotNoun
+{
+    "Sun",
+    "Star",
+    "Crematory",
+    "Oven",
+    "Furnace",
+    "Bonfire",
+    [0.5]"Campfire",
+    "Crucible",
+    "Pyre",
+    "Heater",
+    "Kiln",
+    "Fire",
+    "Barbeque",
+}
+
+SpicyFoodNoun
+{
+    "Pepper",
+    "Chicken",
+}

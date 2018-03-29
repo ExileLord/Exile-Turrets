@@ -1,43 +1,140 @@
 LaserTurretName
 {
-    "{LaserAdjective} {LaserNoun}",
-    [0.1]"{HumanFirstName} {VersionSuffix}",
-    [0.2]"{GenericTurretName}",
+      [4] "{OptionalLaserTurretAdjective} {AlienNoun} {LaserKillerNoun}",
+    [1.6] "{LaserAdjective} {AlienNoun} {KillerNoun}",
+    [1.2] "{LaserAdjective} {WeaponPersonNoun}",
+    [1.2] "{LaserAdjective} {LaserNoun}",
+    [2.5] "{LaserAnimalAlliterationName}{RareVersionSuffix}",
+    [0.3] "{HumanFirstName} {VersionSuffix}",
+   [0.08] "{HumanFirstName} \"{AlienNoun} {LaserKillerNoun}\" {HumanLastName}",
+    
+}
+
+OptionalLaserTurretAdjective
+{
+    "",
+    [1.5]"{LaserAdjective}",
+    [0.7]"{GloryAdjective}",
+    [0.2]"{CountryAdjective}",
+    [0.1]"{ScaryAdjective}",    
+}
+
+LaserAnimalAlliterationName
+{
+    [%1 * %2]    "{A_LaserAdjective} {A_AnimalNoun}",
+    [%1 * %2]    "{CY_LaserAdjective} {S_AnimalNoun}",
+    [%1 * %2]    "{G_LaserAdjective} {G_AnimalNoun}",
+    [%1 * %2]    "{L_LaserAdjective} {L_AnimalNoun}",
+    [%1 * %2]    "{M_LaserAdjective} {M_AnimalNoun}",
+    [%1 * %2]    "{O_LaserAdjective} {O_AnimalNoun}",
+    [%1 * %2]    "{T_LaserAdjective} {T_AnimalNoun}",
+    [%1 * %2]    "{V_LaserAdjective} {V_AnimalNoun}",
+}
+
+A_LaserAdjective
+{
+    "Artificial",
+    "Augmented",
+}
+
+CY_LaserAdjective
+{
+    "Cyber",
+    "Cybernetic",
+    "Cyberpunk",
+}
+
+G_LaserAdjective
+{
+    "Giga",
+    "Gigawatt",
+}
+
+L_LaserAdjective
+{
+    "Laser",
+}
+
+M_LaserAdjective
+{
+    "Mega",
+    "Megawatt",
+    "Megavolt",
+}
+
+O_LaserAdjective
+{
+    "Overclocked",
+    "Overvolted",
+}
+
+T_LaserAdjective
+{
+    "Time Traveling",
+}
+
+U_LaserAdjective
+{
+    "Upgraded",
+}
+
+V_LaserAdjective
+{
+    "Voltage",
 }
 
 LaserAdjective
 {
-    "Cyberpunk",
-    "Time Traveling",
-    "Cybernetic",
-    "Augmented",
-    "Upgraded",
-    "Overvolted",
-    "Overclocked",
-    [0.3]"6 Megawatt",
-    [0.1]"2,000,000 Volt",
     "Artificial",
+    "Augmented",
+    "Cybernetic",
+    "Cyberpunk",
+    "Futuristic",
     "High Tech",
     "Industrial",
-    "Futuristic",
+    "Overclocked",
+    "Overvolted",
     "Reconstructed",
     "Repurposed",
+    "Time Traveling",
+    "Upgraded",
+    [0.1]"2,000,000 Volt",
+    [0.3]"6 Megawatt",
+}
+
+LaserKillerNoun
+{
+    [0.8]"Microwaver",
+    "Vaporizer",
+    "Blaster",
+    "Disintegrator",
+    "Terminator",
 }
 
 LaserNoun
 {
-    "Android",
+    [0.8]"Android",
     "Microwave",
     "Problem Solver",
-    "Cyborg",
-    "Machine",
-    "Machination",
+    [0.8]"Cyborg",
+    [0.9]"Machine",
+    [0.7]"Machination",
     "Flashlight",
     "Laser Cutter",
     "Apparatus",
     "Gadget",
     "Welder",
+    [0.5]"Raygun",
+    [0.5]"Zapper",
+    [0.5]"Phaser",
+    [1]"Death Ray",
     [%1 * 0.5] "{KillerNoun}",
+}
+
+RareVersionSuffix
+{
+    [20]"",
+    " v{MajorVersionPrefix}.{MinorVersionSuffix}",
 }
 
 VersionSuffix

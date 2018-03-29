@@ -1,3 +1,4 @@
+#Nouns that don't really fit in elsewhere but don't quite deserve their own file
 
 SearcherNoun
 {
