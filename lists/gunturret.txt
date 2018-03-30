@@ -1,8 +1,24 @@
-#Gun Turret Name
+# ██████╗ ██╗   ██╗███╗   ██╗                       
+#██╔════╝ ██║   ██║████╗  ██║                       
+#██║  ███╗██║   ██║██╔██╗ ██║                       
+#██║   ██║██║   ██║██║╚██╗██║                       
+#╚██████╔╝╚██████╔╝██║ ╚████║                       
+# ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝                       
+#                                                   
+#████████╗██╗   ██╗██████╗ ██████╗ ███████╗████████╗
+#╚══██╔══╝██║   ██║██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
+#   ██║   ██║   ██║██████╔╝██████╔╝█████╗     ██║   
+#   ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝     ██║   
+#   ██║   ╚██████╔╝██║  ██║██║  ██║███████╗   ██║   
+#   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
+                                                   
 GunTurretName
 {
     [0.5]   "{TurretBarrelNoun} of {PainNoun}",
     [0.5]   "{TurretBarrelNoun} of {DeathNoun}",
+    [0.4]   "{GunTurretAlliterationName1}",
+    [0.5]   "{GunTurretAlliterationName2}",
+    [0.2]   "{BulletNoun} {GenericFoodDishNoun}",
     [10]    "{GenericTurretName}",
 }
 
@@ -16,6 +32,33 @@ RotatingAdjective
     "Rotating",
     "Whirling",
     "Reeling",
+}
+
+GunTurretAlliterationName1
+{
+    [%1] "{G_Adjective} Gunner",
+    [%1 * 0.3] "{G_Adjective} Gun Turret",
+    [%1] "{T_Adjective} Turret",
+    [%1] "{M_Adjective} Machine Gun",
+    [%1] "{M_Adjective} Minigun",
+    [%1] "{E_Adjective} Evicerator",
+    [%1] "{P_Adjective} Perforator",
+    [%1] "{S_Adjective} Shooter",
+}
+
+GunTurretAlliterationName2
+{
+    [%1] "Gun Turret {G_HumanFirstName}",
+    [%1] "Turret {T_HumanFirstName}",
+}
+
+
+BulletNoun
+{
+    "Lead",
+    "9mm",
+    "7.62mm",
+    "Bullet",
 }
 
 GunBarrelsNoun

@@ -59,7 +59,7 @@ B_AnimalNoun
     "Bobcat",
     "Buffalo",
     "Buffalo",
-    "Bug",
+    #"Bug",
     "Bull",
     "Bunny",
     "Butterfly",

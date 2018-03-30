@@ -1,9 +1,25 @@
+#██╗      █████╗ ███████╗███████╗██████╗            
+#██║     ██╔══██╗██╔════╝██╔════╝██╔══██╗           
+#██║     ███████║███████╗█████╗  ██████╔╝           
+#██║     ██╔══██║╚════██║██╔══╝  ██╔══██╗           
+#███████╗██║  ██║███████║███████╗██║  ██║           
+#╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝           
+#                                                   
+#████████╗██╗   ██╗██████╗ ██████╗ ███████╗████████╗
+#╚══██╔══╝██║   ██║██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
+#   ██║   ██║   ██║██████╔╝██████╔╝█████╗     ██║   
+#   ██║   ██║   ██║██╔══██╗██╔══██╗██╔══╝     ██║   
+#   ██║   ╚██████╔╝██║  ██║██║  ██║███████╗   ██║   
+#   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
+                                                 
 LaserTurretName
 {
       [4] "{OptionalLaserTurretAdjective}{AlienNoun} {LaserKillerNoun}",
     [1.6] "{LaserAdjective} {AlienNoun} {KillerNoun}",
     [1.2] "{LaserAdjective} {WeaponPersonNoun}",
     [1.2] "{LaserAdjective} {LaserNoun}",
+    [3] "{LaserTurretAlliterationName1}",
+    [4] "{LaserTurretAlliterationName2}",
     [2.5] "{LaserAnimalAlliterationName}{RareVersionSuffix}",
     [0.3] "{HumanFirstName} {VersionSuffix}",
    [0.08] "{HumanFirstName} \"{AlienNoun} {LaserKillerNoun}\" {HumanLastName}",
@@ -129,6 +145,30 @@ LaserNoun
     [0.5]"Phaser",
     [1]"Death Ray",
     [%1 * 0.5] "{KillerNoun}",
+}
+
+LaserTurretAlliterationName1
+{
+    [%1] "{L_Adjective} Laser",
+    [%1 * 0.3] "{L_Adjective} Laser Turret",
+    [%1] "{V_Adjective} Vaporizer",
+    [%1] "{B_Adjective} Blaster",
+    [%1] "{M_Adjective} Microwave",
+    [%1] "{D_Adjective} Death Ray",
+    [%1] "{F_Adjective} Phaser",
+    [%1] "{T_Adjective} Terminator",
+    [%1] "{Z_Adjective} Zapper",
+}
+
+LaserTurretAlliterationName2
+{
+    [%1] "Laser Turret {L_HumanFirstName}",
+    [%1] "Vaporizer {V_HumanFirstName}",
+    [%1] "Death Ray {D_HumanFirstName}",
+    [%1] "Phaser {F_HumanFirstName}",
+    [%1] "Terminator {T_HumanFirstName}",
+    [%1 * 0.7] "Microwaver {M_HumanFirstName}",
+    [%1 * 0.7] "Zapper {Z_HumanFirstName}",
 }
 
 RareVersionSuffix
