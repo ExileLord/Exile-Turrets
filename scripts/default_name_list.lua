@@ -4435,7 +4435,7 @@ HumanFullName
 }
 LaserTurretName
 {
-      [4] "{OptionalLaserTurretAdjective} {AlienNoun} {LaserKillerNoun}",
+      [4] "{OptionalLaserTurretAdjective}{AlienNoun} {LaserKillerNoun}",
     [1.6] "{LaserAdjective} {AlienNoun} {KillerNoun}",
     [1.2] "{LaserAdjective} {WeaponPersonNoun}",
     [1.2] "{LaserAdjective} {LaserNoun}",
@@ -4448,10 +4448,10 @@ LaserTurretName
 OptionalLaserTurretAdjective
 {
     "",
-    [1.5]"{LaserAdjective}",
-    [0.7]"{GloryAdjective}",
-    [0.2]"{CountryAdjective}",
-    [0.1]"{ScaryAdjective}",    
+    [1.5]"{LaserAdjective} ",
+    [0.7]"{GloryAdjective} ",
+    [0.2]"{CountryAdjective} ",
+    [0.1]"{ScaryAdjective} ",    
 }
 
 LaserAnimalAlliterationName
