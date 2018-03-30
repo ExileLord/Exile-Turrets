@@ -30,8 +30,6 @@ local names_in_use
 --cached functions
 is_turret = EntityTools.isTurret
 
-
-
 --declared functions
 local build_leaderboard
 local add_turret, remove_turret
@@ -264,6 +262,7 @@ local function on_turret_kill(event)
     leaderboard:modify(entry, "kills", entry.value.kills + 1)
     new_event.new_rank = entry.rank.kills
     new_event.key = "kills"
+    new_event.entry = entry
     script.raise_event(EVENT_LEADERBOARD_UPDATED, new_event)
 end
 
@@ -285,10 +284,29 @@ end
 local function on_entity_mined(event)
 end
 
+
+
 local function on_turret_dealt_damage(event)
+    local turret = event.cause
+    local entry = leaderboard:getByEntity(turret)
+    local new_event = { old_rank = entry.rank.damage_dealt }
+    leaderboard:modify(entry, "damage_dealt", turret.damage_dealt)
+    new_event.new_rank = entry.rank.damage_dealt
+    new_event.key = "damage_dealt"
+    new_event.entry = entry
+    script.raise_event(EVENT_LEADERBOARD_UPDATED, new_event)
 end
 
 local function on_turret_damaged(event)
+    local damage = event.final_damage_amount
+    local turret = event.entity
+    local entry = leaderboard:getByEntity(turret)
+    local new_event = { old_rank = entry.rank.damage_taken }
+    leaderboard:modify(entry, "damage_taken", entry.value.damage_taken + damage)
+    new_event.new_rank = entry.rank.damage_taken
+    new_event.key = "damage_taken"
+    new_event.entry = entry
+    script.raise_event(EVENT_LEADERBOARD_UPDATED, new_event)
 end
 
 local function on_entity_damaged(event)

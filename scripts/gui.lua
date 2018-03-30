@@ -1,4 +1,4 @@
---TODO: modules
+--!deprecated
 require "scripts.turrets"
 
 

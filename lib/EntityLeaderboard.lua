@@ -12,7 +12,7 @@ function EntityLeaderboard.new(o)
     o.dead_entries = {} --indexed by unique id -> points to TurretEntry object
     
     o.sorted_entries = {} --map to TurretEntry arrays. index to map should be a self.key
-    for k, v in pairs(o.keys) do
+    for _, v in pairs(o.keys) do
         o.sorted_entries[v] = SortedEntryArray.new{key = v}
     end
     o.keys = nil

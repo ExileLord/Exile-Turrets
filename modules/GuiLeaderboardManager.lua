@@ -1,7 +1,8 @@
 local Manager = {}
-local bindings = require("lib.Bindings")
-local events = require("lib.Events")
+local Bindings = require("lib.Bindings")
+local Events = require("lib.Events")
 local GuiLeaderboard = require("scripts.GuiLeaderboard")
+local Names = require("scripts.GuiLeaderboard.Names")
 
 local gui_leaderboards
 local leaderboard
@@ -47,7 +48,7 @@ function Manager.load()
 
     --Fix locals
     for _, gui_leaderboard in pairs(gui_leaderboards) do
-        GuiLeaderboard.repair_metatable(gui_leaderboard)
+        GuiLeaderboard.repairMetatable(gui_leaderboard)
     end
 end
 
@@ -85,10 +86,12 @@ end
 local function on_leaderboard_update(event)
     local old_rank = event.old_rank
     local new_rank = event.new_rank
+    local key = event.key
+    local entry = event.entry
 
     if old_rank == new_rank then
         for _, gui_leaderboard in pairs(gui_leaderboards) do
-            gui_leaderboard:updateRow(new_rank)
+            gui_leaderboard:updateRow(new_rank, key, entry)
         end
     else
         local start_rank, end_rank
@@ -98,17 +101,64 @@ local function on_leaderboard_update(event)
             start_rank, end_rank = old_rank, new_rank
         end
         for _, gui_leaderboard in pairs(gui_leaderboards) do
-            gui_leaderboard:updateRows(start_rank, end_rank)
+            gui_leaderboard:updateRows(start_rank, end_rank, key, entry)
         end
     end
 end
 
+local function columns_changed(player_index)
+    local gui_leaderboard = gui_leaderboards[player_index]
+    local options_gui = gui_leaderboard.gui[Names.options]
+    local columns = {}
+    for _, v in ipairs(Names.keys) do
+        local option = options_gui[Names.table_option[v]]
+        if option ~= nil and option.state == true then
+            table.insert(columns, v)
+        end
+    end
+
+    gui_leaderboard:changeColumns(columns)
+end
+
+local function sort_key_changed(player_index, element)
+    local sort_key = Names.table_header_reverse[element.name]
+    local gui_leaderboard = gui_leaderboards[player_index]
+    gui_leaderboard:changeSortKey(sort_key)
+end
+
+local function element_is_column_option(element)
+    return element ~= nil and Names.table_option_reverse[element.name]
+end
+
+local function element_is_header_button(element)
+    return element ~= nil and Names.table_header_reverse[element.name]
+end
+
+local function on_gui_checked_state_changed(event)
+    
+    local element = event.element
+    if element_is_column_option(element) then
+        --game.print("Columns changed: " .. event.element.name)
+        columns_changed(event.player_index)
+    end
+
+end
+
+local function on_gui_click(event)
+    local element = event.element
+    if element_is_header_button(element) then
+        --game.print("Header Clicked: " .. event.element.name)
+        sort_key_changed(event.player_index, element)
+    end
+end
 
 local hook_table = 
 {
     [defines.events.on_gui_closed] = on_close_gui,
-    [bindings.open_leaderboard_gui] = on_open_gui,
-    [events.on_leaderboard_update] = on_leaderboard_update,
+    [Bindings.open_leaderboard_gui] = on_open_gui,
+    [Events.on_leaderboard_update] = on_leaderboard_update,
+    [defines.events.on_gui_checked_state_changed] = on_gui_checked_state_changed,
+    [defines.events.on_gui_click] = on_gui_click,
 }
 
 function Manager.hooks()
