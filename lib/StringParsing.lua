@@ -22,12 +22,19 @@ local is_escaped = StringParsing.isEscaped
 
 --TODO: Double check this code (specifically the end_index part)
 function StringParsing.findUnescaped(s, pattern, start)
-    local start_index, end_index
+    local start_index, end_index, new_line_start
     start = start or 1
     end_index = start
+    new_line_start = find(s, "\n", start)
+
     while end_index ~= nil do
         start_index, end_index = find(s, pattern, end_index)
+
         if start_index ~= nil then
+            if new_line_start ~= nil and end_index >= new_line_start then
+                return nil, nil
+            end
+
             if not is_escaped(s, start_index) then
                 return start_index, end_index
             end
