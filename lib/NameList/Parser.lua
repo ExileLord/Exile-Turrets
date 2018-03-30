@@ -11,8 +11,27 @@ local MasterList = require "lib.NameList.MasterList"
 local assert = assert
 local token_types = Token.types
 
---local type_separator = token_types.separator
 
+-- Some custom error handling because finding out what goes wrong in parsing is a pain otherwise
+local error_info =
+{
+    last_list = "",
+    current_list = "",
+}
+
+local function reset_error_info()
+    error_info.last_list = ""
+    error_info.current_list = ""
+end
+
+local function assert(test, error)
+    if test then return end
+    error(string.format("Parser Error: \"%s\"\nPrevious List: \"%s\"\nCurrent List: \"\"", error_info.last_list, error_info.current_list))
+end
+
+
+
+--local type_separator = token_types.separator
 local function parse_pure_entry(list, start)
     local entry = Entry.new()
     local i = start
@@ -23,7 +42,7 @@ local function parse_pure_entry(list, start)
     repeat
         assert(token ~= nil, "Reached end of file while parsing list entry.")
         if token.type ~= token_types.string then
-             error("Found unexpected" .. Token.type_names[token.type] .. " while parsing list entry. Expected comma separator or string.")
+             assert(false, "Found unexpected" .. Token.type_names[token.type] .. " while parsing list entry. Expected comma separator or string.")
         end
 
         if s == nil then 
@@ -89,8 +108,9 @@ local function parse_list(list, start)
     local token = list[i]
     local name_list
 
-    assert(token.type == token_types.identifier, "Error while parsing name list. Expected identifier")
+    assert(token.type == token_types.identifier, "Error while parsing name list. Expected identifier.")
     local name = token.value
+    error_info.current_list = name
 
     name_list = NameList.new{name=name}
 
@@ -115,14 +135,16 @@ local function parse_list(list, start)
 
     --Check for closing brace
     assert(token.value == "}", "Expected \"}\" at the end of list definition.")
-
+    error_info.current_list = ""
+    error_info.previous_list = name
     return name_list, i + 1
 end
 
 
 
 function Parser.parse(s)
-    assert(s ~= nil, "Found nil when trying to par")
+    reset_error_info()
+    assert(s ~= nil, "Can't parse nil!")
     local token_list = Lexer.lex(s)
     local i = 1
     local token = token_list[i]

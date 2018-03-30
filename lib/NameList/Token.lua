@@ -19,6 +19,7 @@ Token.types =
     comment=10
 }
 
+-- Used for errors / debugging
 Token.type_names = 
 {
     [Token.types.eof] = "EOF",
@@ -37,7 +38,17 @@ Token.type_names =
 function Token.new(o)
     o = o or {}
     assert(o.type ~= nil, "Tokens must have a type associated with them.")
+    --value
     return o
+end
+
+function Token.debugString(o)
+    local token_type_string = Token.type_names[o.type] or string.format("Unknown [%s]", tostring(o.type))
+
+    if o.value == nil then 
+        return string.format("(%s)", tostring(token_type_string))
+    end
+    return string.format("(%s = %s)", token_type_string, tostring(o.value))
 end
 
 return Token

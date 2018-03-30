@@ -9,6 +9,78 @@ local sub = string.sub
 local find = string.find
 local insert = table.insert
 
+
+local error_info = 
+{
+    s = "",
+    token_list = nil,
+    index = 1,
+}
+
+--This is only used for errors. It's not cheap
+local function line_number(s, index)
+    local line = 1
+
+    local current_text = sub(s, 1, index) --text up until the error 
+    for _ in string.gmatch(current_text, "(\n)") do
+        line = line + 1
+    end
+    return line
+end
+
+local function print_tokens_rollback()
+    local s = {}
+    local token_list = error_info.token_list
+    local i = #token_list
+    local lower_limit = i - 9
+    if lower_limit < 1 then lower_limit = 1 end
+
+    if #token_list == 0 then
+        return "No tokens to print"
+    end
+
+    table.insert(s, string.format("Previous %d tokens:", i - lower_limit + 1))
+    while i >= lower_limit do
+        local token_string = Token.debugString(token_list[i])
+        local line = string.format("Token %d: %s", i, token_string)
+        table.insert(s, line)
+        i = i - 1
+    end
+    return table.concat(s, "\n")
+end
+
+-- override default assert
+local function assert(condition, error_message)
+    if condition then return end
+    error_message = error_message or "Assertion failed!"
+    local full_error = "Lexer error on line %d: \"%s\"\n%s"
+    local line = line_number(error_info.s, error_info.index)
+    local prev_tokens = print_tokens_rollback()
+    error(string.format(full_error, line, error_message, prev_tokens))
+end
+
+local function assert_not_malformed(index, start_index, s, error_message)
+    if index == start_index then return end
+    local full_error = "Lexer error on line %d: \"%s\"\nExpected token match starting at \"%s\". Closest match started at \"%s\" instead.\n%s"
+    local expect_chunk, actual_chunk
+    
+    local line = line_number(s, index)
+
+    if index ~= nil then
+        expect_chunk = sub(s, index, find(s, "%s", index + 1) - 1) .. "..."
+    else
+        expect_chunk = "<nil>"
+    end
+    if start_index ~= nil then
+        actual_chunk = sub(s, start_index, find(s, "%s", start_index + 1) - 1) .. "..."
+    else
+        expect_chunk = "<nil>"
+    end
+    
+    error(string.format(full_error, line, error_message, expect_chunk, actual_chunk, print_tokens_rollback()))
+end
+
+
 --[[
     Create token functions and the associated table
 ]]
@@ -32,7 +104,8 @@ local function create_literal_token(s, index)
     local token = Token.new{type=Token.types.literal}
 
     local start_index, end_index = find(s, "%d+%.?%d*", index)
-    assert(start_index==index, "Found malformed literal while parsing.")
+    assert_not_malformed(index, start_index, s, "Found malformed literal while parsing.")
+    --assert(start_index==index, "Found malformed literal while parsing.")
     token.value = tonumber(sub(s, start_index, end_index))
 
     return token, end_index+1
@@ -42,7 +115,8 @@ local function create_identifier_token(s, index)
     local token = Token.new{type=Token.types.identifier}
     
     local start_index, end_index = find(s, "%a[%w_]*", index)
-    assert(start_index==index, "Found malformed identifier while parsing.")
+    assert_not_malformed(index, start_index, s, "Found malformed identifier while parsing.")
+    --assert(start_index==index, "Found malformed identifier while parsing.")
     token.value = sub(s, start_index, end_index)
 
     return token, end_index+1
@@ -52,7 +126,8 @@ local function create_list_placeholder_token(s, index)
     local token = Token.new{type=Token.types.list_placeholder}
     
     local start_index, end_index = find(s, "%%%d*", index)
-    assert(start_index==index, "Found malformed list placeholder while parsing.")
+    assert_not_malformed(index, start_index, s, "Found malformed list placeholder while parsing.")
+    --assert(start_index==index, "Found malformed list placeholder while parsing.")
     token.value = tonumber(sub(s, start_index+1, end_index))
 
     return token, end_index+1
@@ -92,7 +167,8 @@ local function create_comment_token(s, index)
     local token = Token.new{type=Token.types.comment}
 
     local start_index, end_index = find(s, "#[^\n]*", index)
-    assert(start_index==index, "Found malformed comment while parsing.")
+    assert_not_malformed(index, start_index, s, "Found malformed comment while parsing.")
+    --assert(start_index==index, "Found malformed comment while parsing.")
     token.value = sub(s, start_index+1, end_index)
 
     return token, end_index+1
@@ -174,11 +250,16 @@ function Lexer.lex(s)
     local index = 1
     local maxlen = #s
 
+    error_info.token_list = token_list
+    error_info.s = s
+    error_info.index = index
+
     while index <= maxlen do
         index = find_next_token(s, index)
         if index == nil then
             break
         end
+        error_info.index = index
 
         local type = identify_token_type(s, index)
         local token
