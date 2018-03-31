@@ -18,13 +18,13 @@ CountryNoun
     [2]"Russia",
     [1.5]"China",
     [1.5]"Japan",
+    [0.1]"Zootopia",
+    [0.1]"Wakanda",
 }
 
 CountryAdjective
 {
     [3]"American",
-    [0.1]"Gunlandian",
-    [0.1]"Gunistanian",
     "African",
     "British",
     "Australian",
@@ -32,4 +32,6 @@ CountryAdjective
     [2]"Russian",
     [1.5]"Chinese",
     [1.5]"Japanese",
+    [0.1]"Zootopian",
+    [0.1]"Wakandan",
 }

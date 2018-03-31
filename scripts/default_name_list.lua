@@ -1193,13 +1193,13 @@ CountryNoun
     [2]"Russia",
     [1.5]"China",
     [1.5]"Japan",
+    [0.1]"Zootopia",
+    [0.1]"Wakanda",
 }
 
 CountryAdjective
 {
     [3]"American",
-    [0.1]"Gunlandian",
-    [0.1]"Gunistanian",
     "African",
     "British",
     "Australian",
@@ -1207,6 +1207,8 @@ CountryAdjective
     [2]"Russian",
     [1.5]"Chinese",
     [1.5]"Japanese",
+    [0.1]"Zootopian",
+    [0.1]"Wakandan",
 }
 
 DeathNoun
@@ -1252,11 +1254,25 @@ KillerNoun
 
 FlamethrowerTurretName
 {
-    [3] "{OptionalFlamethrowerTurretAdjective}{AlienNoun} {FireKillerNoun}",
-    [1.3] "{FireAdjective} {AlienNoun} {KillerNoun}",
-    [1] "{FireAdjective} {WeaponPersonNoun}",
-    [2.8] "{FireAnimalAlliterationName}",
-    [0.1] "{HumanFirstName} \"{AlienNoun} {FireKillerNoun}\" {HumanLastName}",
+    [3]     "{OptionalFlamethrowerTurretAdjective}{AlienNoun} {FireKillerNoun}",
+    [1.3]   "{FireAdjective} {AlienNoun} {KillerNoun}",
+    [1]     "{FireAdjective} {WeaponPersonNoun}",
+    [0.7]   "{CountryAdjective} Fire {WeaponPersonNoun}",
+    [2.4]   "{FireAnimalAlliterationName}",
+    [2.4]   "{FireHumanAlliterationName}",
+    [2.4]   "{FireAlliterationName}",
+    [0.1]   "{HumanFirstName} \"{AlienNoun} {FireKillerNoun}\" {HumanLastName}",
+    [0.025] "Napalm {GenericFoodDishNoun}",
+    [0.005] "{LegendaryFlamethrowerTurretName}",
+}
+
+#Legendary names are unique and rare names
+LegendaryFlamethrowerTurretName
+{
+    "Funeral Pyre",
+    "Immolation",
+    "Volcano",
+    "Trial by Fire",
 }
 
 OptionalFlamethrowerTurretAdjective
@@ -1279,6 +1295,49 @@ FireAnimalAlliterationName
     [%1 * %2]    "{Fire_S_Adjective} {S_AnimalNoun}",
     [%1 * %2]    "{Fire_T_Adjective} {T_AnimalNoun}",
     [%1 * %2]    "{Fire_W_Adjective} {W_AnimalNoun}",
+}
+
+FireHumanAlliterationName
+{
+    [%1 * %2]    "{Fire_B_Adjective} {B_HumanFirstName}",
+    [%1 * %2]    "{Fire_F_Adjective} {F_HumanFirstName}",
+    [%1 * %2]    "{Fire_G_Adjective} {G_HumanFirstName}",
+    [%1 * %2]    "{Fire_H_Adjective} {H_HumanFirstName}",
+    [%1 * %2]    "{Fire_I_Adjective} {I_HumanFirstName}",
+    [%1 * %2]    "{Fire_M_Adjective} {M_HumanFirstName}",
+    [%1 * %2]    "{Fire_R_Adjective} {R_HumanFirstName}",
+    [%1 * %2]    "{Fire_S_Adjective} {S_HumanFirstName}",
+    [%1 * %2]    "{Fire_T_Adjective} {T_HumanFirstName}",
+    [%1 * %2]    "{Fire_W_Adjective} {W_HumanFirstName}",
+}
+
+FireAlliterationName
+{
+    [%1] "{B_Adjective} Barbeque",
+    [%1] "{B_Adjective} Bonfire",
+    [%1] "{B_Adjective} Burner",
+    [%1] "{C_Adjective} Combuster",
+    [%1] "{C_Adjective} Cooker",
+    [%1] "{C_Adjective} Cremator",
+    [%1] "{C_Adjective} Crematory",
+    [%1] "{C_Adjective} Crucible",
+    [%1] "{C_Adjective} Campfire",
+    [%1] "{F_Adjective} Fire",
+    [%1] "{F_Adjective} Firestorm",
+    [%1] "{F_Adjective} Furnace",
+    [%1] "{H_Adjective} Heater",
+    [%1] "{I_Adjective} Igniter",
+    [%1] "{I_Adjective} Incinerator",
+    [%1] "{I_Adjective} Inferno",
+    [%1] "{K_Adjective} Kiln",
+    [%1] "{M_Adjective} Melter",
+    [%1] "{O_Adjective} Oven",
+    [%1] "{P_Adjective} Pyre",
+    [%1] "{R_Adjective} Roaster",
+    [%1] "{S_Adjective} Scorcher",
+    [%1] "{S_Adjective} Smoker",
+    [%1] "{S_Adjective} Star",
+    [%1] "{S_Adjective} Sun",
 }
 
 #Intended for flamethrower turret
@@ -1664,7 +1723,7 @@ GunTurretName
     [0.5]   "{TurretBarrelNoun} of {PainNoun}",
     [0.5]   "{TurretBarrelNoun} of {DeathNoun}",
     [0.4]   "{GunTurretAlliterationName1}",
-    [0.5]   "{GunTurretAlliterationName2}",
+    [0.7]   "{GunTurretAlliterationName2}",
     [0.2]   "{BulletNoun} {GenericFoodDishNoun}",
     [10]    "{GenericTurretName}",
 }
@@ -1697,6 +1756,11 @@ GunTurretAlliterationName2
 {
     [%1] "Gun Turret {G_HumanFirstName}",
     [%1] "Turret {T_HumanFirstName}",
+    [%1] "MachineGun {M_HumanFirstName}",
+    [%1] "Minigun {M_HumanFirstName}",
+    [%1] "Evicerator {E_HumanFirstName}",
+    [%1] "Perforator {P_HumanFirstName}",
+    [%1] "Shooter {S_HumanFirstName}",
 }
 
 
