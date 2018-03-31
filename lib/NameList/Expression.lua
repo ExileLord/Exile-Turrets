@@ -168,4 +168,18 @@ function Expression:evaluate(referenced_lists, master_list)
     end
 end
 
+function Expression:serialize()
+    if self == nil then return nil end
+
+    local s = ""
+    for i, token in ipairs(self.token_list) do
+        if token.type == NameListToken.types.list_placeholder then
+            s = s .. "%"
+        end
+        s = s .. tostring(token.value)
+    end
+
+    return s
+end
+
 return Expression

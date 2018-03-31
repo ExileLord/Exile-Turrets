@@ -15,18 +15,48 @@ local token_types = Token.types
 -- Some custom error handling because finding out what goes wrong in parsing is a pain otherwise
 local error_info =
 {
-    last_list = "",
+    previous_list = "",
     current_list = "",
+    previous_weight = nil,
+    previous_entry = nil,
+    current_weight = nil,
+    current_entry = nil,
 }
 
 local function reset_error_info()
-    error_info.last_list = ""
+    error_info.previous_list = ""
     error_info.current_list = ""
+    error_info.previous_weight = nil
+    error_info.previous_entry = nil
+    error_info.current_weight = nil
+    error_info.current_entry = nil
 end
 
-local function assert(test, error)
+local function debug_full_entry_string(weight, entry)
+    s = ""
+    if weight ~= nil then
+        s = "[" .. Expression.serialize(weight) .. "] "
+    end
+    if entry ~= nil then
+        s = s .. Entry.serialize(entry)
+    elseif weight ~= nil then
+        s = s .. "<error>"
+    end
+    if s == "" then return nil end
+    return s
+end
+
+local function assert(test, error_message)
     if test then return end
-    error(string.format("Parser Error: \"%s\"\nPrevious List: \"%s\"\nCurrent List: \"\"", error_info.last_list, error_info.current_list))
+    
+    local error_message = string.format("Parser Error: \"%s\"\nPrevious List: \"%s\"\nCurrent List: \"%s\"", error_message, error_info.previous_list, error_info.current_list)
+    if error_info.current_list ~= "" then
+        local previous_entry = debug_full_entry_string(error_info.previous_weight, error_info.previous_entry) or "<nil>"
+        local current_entry = debug_full_entry_string(error_info.current_weight, error_info.current_entry) or "<error>"
+        error_message = error_message .. string.format("\nPrevious Entry: %s\nCurrent Entry: %s", previous_entry, current_entry)
+    end
+
+    error(error_message)
 end
 
 
@@ -95,8 +125,10 @@ local function parse_entry(list, start)
     if token.type == token_types.weight_block then
         weight, i = parse_weight(list, i)
     end
+    error_info.current_weight = weight
 
     entry, i = parse_pure_entry(list, i)
+    error_info.current_entry = entry
 
     return weight, entry, i
 end
@@ -127,6 +159,10 @@ local function parse_list(list, start)
             local weight, entry
             weight, entry, i = parse_entry(list, i)
             name_list:add(entry, weight)
+            error_info.previous_weight = error_info.current_weight
+            error_info.previous_entry = error_info.current_entry
+            error_info.current_weight = nil
+            error_info.current_entry = nil
         else
             i = i + 1 --This is a comma!
         end

@@ -31,6 +31,7 @@ function Entry.new(o)
 
     if o.text ~= nil then
         o:parse(o.text)
+        o.text = nil
     end
 
     return o
@@ -106,6 +107,20 @@ function Entry:toString(master_list)
     for i, entry in ipairs(self.entries) do
         if (entry.is_list) then
             s = s .. entry:toList(master_list):randomName(master_list)
+        else
+            s = s .. entry.text
+        end
+    end
+
+    return s
+end
+
+function Entry:serialize()
+    local s = ""
+    --TODO: Profile string concatenation vs table.concat
+    for i, entry in ipairs(self.entries) do
+        if (entry.is_list) then
+            s = s .. "{" .. entry.text .. "}"
         else
             s = s .. entry.text
         end
