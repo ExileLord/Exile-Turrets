@@ -39,6 +39,7 @@ function GuiLeaderboard.new(o)
     end
 
     GuiLeaderboard.rebuildColumnIndex(o)
+    o.current_rows = 0
 
     --o.available_columns = o.available_columns or ALL_COLUMNS
     o.sort_key = o.sort_key or DEFAULT_SORT_KEY
@@ -115,6 +116,7 @@ function GuiLeaderboard:updateRows(start_row, end_row, key, entry)
         return
     end
 
+    -- Ensure the start row actually comes before the end row
     if start_row > end_row then
         start_row, end_row = end_row, start_row
     end

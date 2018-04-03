@@ -11,6 +11,7 @@ Styles.header_button = prefix .. "header-button"
 Styles.scrollpane = prefix .. "scrollpane"
 Styles.table = prefix .. "table"
 Styles.table_cell_flow = prefix .. "cell-flow"
+Styles.table_type_cell_flow = prefix .. "type-cell-flow"
 
 
 Styles.rank_label = prefix .. "rank-label"

@@ -3,6 +3,7 @@
 local Builder = {}
 local Names = require("scripts.GuiLeaderboard.Names")
 local Styles = require("lib.Styles")
+local MAX_ROWS = 500 --TODO: Make this configurable
 
 
 
@@ -15,6 +16,7 @@ local add_table
 local add_table_header
 local add_table_header_button
 local add_table_row
+local add_table_cell_wrapper
 local add_table_cell
 local add_table_rank_cell
 local add_table_type_cell
@@ -107,6 +109,7 @@ function add_table(gui_leaderboard, frame)
             column_count = 3 + #gui_leaderboard.columns, 
             style = Styles.table
         }
+        gui_table.enabled = false
 
         gui_table.draw_vertical_lines = true
         gui_table.draw_horizontal_line_after_headers = true
@@ -115,12 +118,14 @@ function add_table(gui_leaderboard, frame)
         local list = gui_leaderboard.leaderboard:getSortedArray(key)
         local columns = gui_leaderboard.columns
         
-        
+        local row_count = math.min(#list, MAX_ROWS)
+        gui_leaderboard.current_rows = row_count
         add_table_header(gui_table, columns)
-        for rank = 1, #list do
+        for rank = 1, row_count do
             add_table_row(gui_table, columns, list, rank)
         end
 
+        gui_table.enabled = true
         return gui_table, scroll_pane
 end
 
@@ -131,8 +136,9 @@ function add_table_header(table, columns)
     add_table_header_button(table, "rank")
     add_table_header_button(table, "type")
     add_table_header_button(table, "name")
-    for _, column in ipairs(columns) do
-        add_table_header_button(table, column)
+    
+    for i = 1, #columns do
+        add_table_header_button(table, columns[i])
     end
 end
 
@@ -155,6 +161,15 @@ function add_table_row(table, columns, list, rank)
     end
 end
 
+-- The wrapper cell for every entry in the leaderboard table
+function add_table_cell_wrapper(table, key, rank, style)
+    return table.add {
+        type = "flow", 
+        name = Names.tableCell(key, rank), 
+        style = style or Styles.table_cell_flow
+    }
+end
+
 --Rank cell in the leaderboard ranking table. The turret's rank
 local default_rank_label_style = Styles.rank_label
 local rank_label_style =
@@ -165,9 +180,11 @@ local rank_label_style =
 }
 function add_table_rank_cell(table, rank)
     local style = rank_label_style[rank] or default_rank_label_style
-    table.add {
+    local outer_cell = add_table_cell_wrapper(table, "rank", rank)
+
+    outer_cell.add {
         type = "label",
-        name = Names.tableCell("rank", rank),
+        name = Names.inner_table_cell,
         caption = rank,
         style = style,
     }
@@ -183,27 +200,33 @@ local name_rank_label_style =
 }
 function add_table_name_cell(table, rank, entry)
     local style = name_rank_label_style[rank] or default_name_label_style
-    table.add {
+    local outer_cell = add_table_cell_wrapper(table, "name", rank)
+
+    outer_cell.add {
         type = "label",
-        name = Names.tableCell("name", rank),
+        name = Names.inner_table_cell,
         caption = entry.value.name,
         style = style,
     }
 end
 
 function add_table_type_cell(table, rank, entry)
-    local cell = table.add {
+    local outer_cell = add_table_cell_wrapper(table, "type", rank, Styles.table_type_cell_flow)
+
+    local cell = outer_cell.add {
         type = "entity-preview", 
-        name = Names.tableCell("type", rank), 
+        name = Names.inner_table_cell, 
         style = Styles.turret_preview
     }
     cell.entity = entry.entity -- Place
 end
 
 function add_table_cell(table, rank, entry, key)
-    table.add {
+    local outer_cell = add_table_cell_wrapper(table, key, rank)
+
+    outer_cell.add {
         type = "label", 
-        name = Names.tableCell(key, rank), 
+        name = Names.inner_table_cell, 
         caption = tostring(entry.value[key])
     }
 end
@@ -221,30 +244,15 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 --Responsible for updating the gui leaderboard that is displayed on screen
 
 local function update_type_cell(cell, entry)
-    
     cell.entity = entry.entity
 end
 
 local function update_cell(cell, entry, key)
+    cell = cell[Names.inner_table_cell]
+
     if key == "type" then
         update_type_cell(cell, entry)
         return
@@ -261,6 +269,10 @@ end
 --!TODO: Redo this garbage so that we're not using GuiElement.children anymore. 
 function Builder.updateCell(gui_leaderboard, row, key)
     local cell
+
+    if row > gui_leaderboard.current_rows then
+        return
+    end
 
     do
         local column = gui_leaderboard.column_index[key]
@@ -280,6 +292,10 @@ function Builder.updateCell(gui_leaderboard, row, key)
 end
 
 function Builder.updateRow(gui_leaderboard, row)
+
+    if row > gui_leaderboard.current_rows then
+        return
+    end
 
     local sort_key = gui_leaderboard.sort_key
     local list = gui_leaderboard.leaderboard:getSortedArray(sort_key)

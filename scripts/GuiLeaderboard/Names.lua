@@ -7,17 +7,18 @@ Names.scrollpane = "leaderboard_scroll_pane"
 Names.keys_table = "leaderboard_keys_table"
 Names.table = "leaderboard_table"
 Names.options = "leaderboard_options"
+Names.inner_table_cell = "a"
 
-local MAX_CELL_NAME_CACHE = 1000
+local MAX_CELL_NAME_CACHE = 20000
 
-
---TODO: Don't think these most of these are used and/or useful. Confirm and remove
 Names.rank = "rank"
 Names.type = "type"
 Names.name = "name"
 Names.kills = "kills"
 Names.damage_dealt = "damage_dealt"
 Names.damage_taken = "damage_taken"
+Names.kill_reason = "kill_reason"
+Names.age = "age"
 Names.keys =
 {
     "rank",
@@ -26,6 +27,8 @@ Names.keys =
     "kills",
     "damage_dealt",
     "damage_taken",
+    "kill_reason",
+    "age",
 }
 local small_keys_array =
 {
@@ -34,7 +37,9 @@ local small_keys_array =
     "n",
     "k",
     "d",
-    "p"
+    "p",
+    "o",
+    "a"
 }
 
 local function build_map(t1, t2)
@@ -63,7 +68,6 @@ local function build_derivative_map(tail)
 end
 
 Names.table_option, Names.table_option_reverse = build_derivative_map("_option")
-
 Names.table_header, Names.table_header_reverse = build_derivative_map("_header")
 
 local table_cell_map = {}
@@ -78,13 +82,8 @@ for _, k in ipairs(Names.keys) do
     table_cell_map[k] = map
 end
 
-function Names.keyExists(key)
-    return small_keys[key] ~= nil
-end
-
-
 function Names.tableCell(key, i)
-    return table_cell_map[key][i] or small_keys_map[key] .. i
+    return table_cell_map[key][i] or small_keys[key] .. i
 end
 
 local sub = string.sub

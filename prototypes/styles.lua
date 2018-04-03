@@ -3,6 +3,9 @@ local Styles = require("lib.Styles")
 
 local style = data.raw["gui-style"]["default"]
 
+local default_cell_right_padding = 5
+local default_cell_left_padding = 5
+
 --Defaults
 style[Styles.label] =
 {
@@ -20,11 +23,16 @@ style[Styles.header_button] =
     type = "button_style",
     font = "default",
     padding = 0,
-
+    left_padding = default_cell_left_padding,
+    right_padding = default_cell_right_padding,
+    
     default_font_color = {r=1, g=1, b=1},
     hovered_font_color = {r=0, g=0, b=0},
     clicked_font_color = {r=1, g=1, b=1},
     disabled_font_color = {r=0.5, g=0.5, b=0.5},
+
+    
+    
 
     align = "left",
 
@@ -191,9 +199,17 @@ style[Styles.table] =
 }
 style[Styles.table_cell_flow] =
 {
-    type = "flow_style",
-    right_padding = 20,
-    left_padding = 20,
+    type = "horizontal_flow_style",
+    right_padding = 5,
+    left_padding = 5,
+}
+
+style[Styles.table_type_cell_flow] =
+{
+    type = "horizontal_flow_style",
+    parent = Styles.table_cell_flow,
+    right_padding = 0,
+    left_padding = 0,
 }
 
 --Scrollpane
