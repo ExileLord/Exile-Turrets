@@ -1,13 +1,3 @@
---require "hover_text"
---require "turrets"
---require "gui"
-
-
---Currently the only
---local default_name_list_text = require("scripts.default_name_list")
---local Parser = require("lib.NameList.Parser")
---local MasterList = require("lib.NameList.MasterList")
-
 --Loaded in the order they are given
 local modules = {
     require("modules.MasterList"),
@@ -16,6 +6,7 @@ local modules = {
     require("modules.GuiLeaderboardManager")
 }
 
+--Returns a event_handler that executers each event handler function passed in
 local function create_multifunction_handler(functions)
     return function(event)
         for i=1, #functions do
@@ -25,6 +16,7 @@ local function create_multifunction_handler(functions)
     end
 end
 
+--Registers all event handlers in the given modules
 local function register_events(modules)
     local event_map = {}
 
@@ -51,7 +43,6 @@ end
 register_events(modules)
 
 script.on_init(function()
-    --global.master_list = global.master_list or Parser.parse(default_name_list_text)
     for _, module in ipairs(modules) do
         module.init()
     end
@@ -59,22 +50,8 @@ end
 )
 
 script.on_load(function()
-    --MasterList.repairMetatable(global.master_list)
     for _, module in ipairs(modules) do
         module.load()
     end
 end
 )
-
-
---[[
-script.on_event("exile-turrets-open-leaderboard-gui", function(event)
-    local player = game.players[event.player_index]
-    --open_gui(player)
-end)
-
-script.on_event(defines.events.on_gui_closed, function(event)
-    local player = game.players[event.player_index]
-    --close_gui(player)
-end)
---]]
