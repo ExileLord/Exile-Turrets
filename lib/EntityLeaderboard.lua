@@ -1,6 +1,7 @@
 local EntityLeaderboard = {}
 local Entry = require "lib.EntityLeaderboard.Entry"
 local SortedEntryArray = require "lib.EntityLeaderboard.SortedEntryArray"
+local KillReason = require "lib.KillReason"
 
 local table_insert = table.insert
 
@@ -46,6 +47,9 @@ function EntityLeaderboard:add(entry)
 end
 
 function EntityLeaderboard:kill(entry)
+    self.living_entries[entry.entity.unit_number] = nil
+    table_insert(self.dead_entries, entry)
+    entry.entity = nil
 end
 
 function EntityLeaderboard:getSortedArray(key)

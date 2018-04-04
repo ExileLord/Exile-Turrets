@@ -5,6 +5,7 @@ local EntityLeaderboard = require "lib.EntityLeaderboard"
 local Entry = require "lib.EntityLeaderboard.Entry"
 local EntityTools = require "lib.EntityTools"
 local Events = require "lib.Events"
+local KillReason = require "lib.KillReason"
 
 local LeaderboardUpdater = {}
 
@@ -37,6 +38,23 @@ local build_names_in_use, add_name, remove_name
 
 
 
+
+-- Entity related
+local function get_kill_reason(victim, killer, killer_force)
+    if killer == nil and killer_force == nil then
+        return KillReason.unknown
+    end
+
+    if victim == killer then
+        return KillReason.suicide
+    end
+
+    if EntityTools.entitiesAreFriendly(victim, killer, killer_force) then
+        return KillReason.friendly_fire
+    end
+
+    return KillReason.enemy
+end
 
 
 ----------------
@@ -169,8 +187,9 @@ function add_turret(e)
     local kills = e.kills
     local damage_dealt = e.damage_dealt
     local damage_taken = 0
-    local kill_reason = 0
+    local kill_reason = KillReason.alive
     local name = generate_turret_name(e)
+    local type = e.type
 
     local entry = Entry.new{
         entity = e,
@@ -181,6 +200,7 @@ function add_turret(e)
             damage_taken = damage_taken,
             kill_reason = kill_reason,
             name = name,
+            type = type,
         }
     }
 
@@ -189,6 +209,32 @@ function add_turret(e)
 end
 
 function kill_turret(e, kill_reason)
+    local entry = leaderboard:getByEntity(e)
+
+    local type_event = { 
+        old_rank = entry.rank.type, 
+        new_rank = entry.rank.type,  
+        key = "type",
+        entry = entry,
+    }
+
+    local kill_reason_event = { 
+        old_rank = entry.rank.kill_reason, 
+        key = "kill_reason",
+        entry = entry,
+    }
+
+    if kill_reason ~= nil or entry.value.kill_reason == KillReason.alive then
+        leaderboard:modify(entry, "kill_reason", kill_reason or KillReason.unknown)
+    end
+
+    kill_reason_event.new_rank = entry.rank.kill_reason
+
+    leaderboard:kill(entry)
+
+    script.raise_event(EVENT_LEADERBOARD_UPDATED, type_event)
+
+    script.raise_event(EVENT_LEADERBOARD_UPDATED, kill_reason_event)
 end
 
 function remove_turret(e)
@@ -267,6 +313,11 @@ local function on_turret_kill(event)
 end
 
 local function on_turret_died(event)
+    local turret = event.entity
+    local killer = event.cause
+    local killer_force = event.force
+    local kill_reason = get_kill_reason(turret, killer, killer_force)
+    kill_turret(turret, kill_reason)
 end
 
 local function on_entity_died(event)
@@ -282,6 +333,8 @@ end
 
 
 local function on_entity_mined(event)
+    local turret = event.entity
+    kill_turret(turret, KillReason.retired)
 end
 
 

@@ -9,7 +9,7 @@ Names.table = "leaderboard_table"
 Names.options = "leaderboard_options"
 Names.inner_table_cell = "a"
 
-local MAX_CELL_NAME_CACHE = 20000
+local MAX_CELL_NAME_CACHE = 2000
 
 Names.rank = "rank"
 Names.type = "type"

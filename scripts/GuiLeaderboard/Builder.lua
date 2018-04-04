@@ -3,7 +3,7 @@
 local Builder = {}
 local Names = require("scripts.GuiLeaderboard.Names")
 local Styles = require("lib.Styles")
-local MAX_ROWS = 500 --TODO: Make this configurable
+local MAX_ROWS = 500 --TODO: Make this configurable / add pages
 
 
 
