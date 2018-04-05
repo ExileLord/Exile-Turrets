@@ -1,30 +1,31 @@
-local InnerList = require "lib.NameList.InnerList"
+-- ComplexList : InnerList
+-- A list that has only entries with weights dependent on the weights of the lists referenced in those entries.
+-- This means that this list's weight table needs to be recalculated if any elements are ever added to a dependent.
+-- Weights in this list are expressions which can be understood in more detail in NameList.Expression.lua
+--
+-- Ex.
+-- [%1 * %2] "{AnimalAdjective} {AnimalName}"   #Weight is (Total weight of AnimalAdjective) * (Total weight of AnimalName)
+-- [%2 + 5] "{First} {Second} {Third}"          #Weight is (Total weight of Second) + 5
+
 local ComplexList = {}
-setmetatable(ComplexList, {__index = InnerList})
-local Expression = require "lib.NameList.Expression"
 
---[[
-    ComplexList
-    A list that has only entries with weights dependent on the weights of the lists referenced in those entries.
-    This means that this list's weight table needs to be recalculated if any elements are ever added to a dependent.
-    Weights in this list are expressions which can be understood in more detail in NameList.Expression.lua
+local root = (...):match("(.-)[^%.]+$")
+local Expression = require(root .. "Expression")
+local InnerList = require(root .. "InnerList")
 
-    Ex.
-    [%1 * %2] "{AnimalAdjective} {Animal Name}"
-    [%2 + 5] "{First} {Second} {Third}"
---]]
-local instance_metatable = {__index = ComplexList}
+setmetatable(ComplexList, {__index = InnerList}) -- Subclass of InnerList
+
+local _mt = {__index = ComplexList}
 function ComplexList.new(o)
     o = InnerList.new(o)
-    setmetatable(o, instance_metatable)
+    setmetatable(o, _mt)
     return o
 end
 
 function ComplexList.repairMetatable(o)
     InnerList.repairMetatable(o)
-    setmetatable(o, instance_metatable)
+    setmetatable(o, _mt)
 end
-
 
 function ComplexList:buildWeightTable(master_list)
     self:purgeWeightTable()

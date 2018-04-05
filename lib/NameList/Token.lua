@@ -1,8 +1,7 @@
---NameList = NameList or {}
---NameList.Token = NameList.Token or {}
+-- Token
+-- Represents a token from lexing/parsing a NameList text. The grammar is described in more detail in grammar_example.txt
 
-local Token = {} --{NameList.Token}
-
+local Token = {}
 
 Token.types = 
 {
@@ -19,7 +18,8 @@ Token.types =
     comment=10
 }
 
--- Used for errors / debugging
+-- Used only for errors / debugging
+-- Shouldn't need localization as a result
 Token.type_names = 
 {
     [Token.types.eof] = "EOF",

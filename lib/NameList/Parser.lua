@@ -1,18 +1,22 @@
--- The parser that generates a series of name lists (a master list) from a set of lexed tokens
+-- Parser
+-- Generates a series of name lists (a master list) from a set of lexed tokens
 
 local Parser = {}
-local NameList = require "lib.NameList"
-local Token = require "lib.NameList.Token"
-local Lexer = require "lib.NameList.Lexer"
-local Entry = require "lib.NameList.Entry"
-local Expression = require "lib.NameList.Expression"
-local MasterList = require "lib.NameList.MasterList"
 
-local assert = assert
+local root = (...):match("(.-)[^%.]+$")
+local NameList = require(root .. "List")
+local Token = require(root .. "Token")
+local Lexer = require(root .. "Lexer")
+local Entry = require(root .. "Entry")
+local Expression = require(root .. "Expression")
+local MasterList = require(root .. "MasterList")
+
 local token_types = Token.types
 
+---------------------------------------------------------------------------------------------------
+-- Some custom error handling because finding out what goes wrong in parsing is a pain otherwise --
+---------------------------------------------------------------------------------------------------
 
--- Some custom error handling because finding out what goes wrong in parsing is a pain otherwise
 local error_info =
 {
     previous_list = "",
@@ -59,7 +63,9 @@ local function assert(test, error_message)
     error(error_message)
 end
 
-
+-------------
+-- Parsing --
+-------------
 
 --local type_separator = token_types.separator
 local function parse_pure_entry(list, start)

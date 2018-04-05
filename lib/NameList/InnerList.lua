@@ -1,12 +1,12 @@
+-- InnerList
+-- List primitive for the NameList.List class. Base class for ComplexInnerList and SimpleInnerList.
+
 local InnerList = {}
-local Entry = require "lib.NameList.Entry"
 
+local root = (...):match("(.-)[^%.]+$")
+local Entry = require(root .. "Entry")
 
---[[
-    InnerList
-    The base class for a list
-    Do not call this directly
---]]
+-- Should only be called by derived class constructors
 function InnerList.new(o)
     o = o or {}
     o.entries = {} --list of NameList.Entry classes
@@ -18,7 +18,6 @@ function InnerList.new(o)
 
     o.total_weight = 0 --the total weight of the list
                         --should be equal to the last element in running_weight,
-    --setmetatable(o, {__index = InnerList})
     return o
 end
 

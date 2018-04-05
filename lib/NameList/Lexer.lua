@@ -1,14 +1,16 @@
+-- Lexer
 -- Responsible for lexing a text into a series of tokens to be parsed by the Parser
 
 local Lexer = {}
-local Token = require "lib.NameList.Token"
-local StringParsing = require "lib.StringParsing"
-local find_unescaped = StringParsing.findUnescaped
 
+local root = (...):match("(.-)[^%.]+$")
+local Token = require(root .. "Token")
+local StringParsing = require(root .. "StringParsing")
+
+local find_unescaped = StringParsing.findUnescaped
 local sub = string.sub
 local find = string.find
 local insert = table.insert
-
 
 local error_info = 
 {

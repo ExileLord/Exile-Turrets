@@ -1,7 +1,12 @@
+-- NameList
+-- A weighted list of text entries used to randomly generate names or labels.
+-- NameList entries can reference other lists allowing for some very flexible name generation.
+
 local NameList = {}
 
-local SimpleList = require "lib.NameList.SimpleInnerList"
-local ComplexList = require "lib.NameList.ComplexInnerList"
+local root = (...):match("(.-)[^%.]+$")
+local SimpleList = require(root .. "SimpleInnerList")
+local ComplexList = require(root .. "ComplexInnerList")
 
 
 -- NameList, a random name generator

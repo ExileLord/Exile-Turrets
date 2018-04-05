@@ -1,3 +1,6 @@
+-- StringParsing
+-- Small independent module providing some helper functions for parsing/lexing NameList texts
+
 local StringParsing = {}
 
 local sub = string.sub

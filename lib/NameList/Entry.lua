@@ -1,17 +1,21 @@
+-- Entry
 -- An entry in a name list
 -- Can reference other name lists
 
-local Lexer = require "lib.NameList.Lexer"
 local Entry = {}
 local EntryPiece = {}
-local StringParsing = require "lib.StringParsing"
+
+local root = (...):match("(.-)[^%.]+$")
+local Lexer = require(root .. "Lexer")
+local StringParsing = require(root .. "StringParsing")
+
 local replace_escape_sequences = StringParsing.replaceEscapeSequences
 local find_unescaped = StringParsing.findUnescaped
 
-local entry_piece_instance_metatable = {__index = EntryPiece}
+local _piece_mt = {__index = EntryPiece}
 function EntryPiece.new(o)
     o = o or {}
-    setmetatable(o, entry_piece_instance_metatable)
+    setmetatable(o, _piece_mt)
     --is_list
     --text
     return o
@@ -22,12 +26,12 @@ function EntryPiece:toList(master_list)
     return master_list:get(self.text)
 end
 
-local instance_metatable = {__index = Entry}
+local _mt = {__index = Entry}
 function Entry.new(o)
     o = o or {}
     o.entries = o.entries or {} --List of EntryPiece objects to construct a string with
     o.referenced_lists = o.referenced_lists or {} --Table of with list names as key and number of references as value
-    setmetatable(o, instance_metatable )
+    setmetatable(o, _mt )
 
     if o.text ~= nil then
         o:parse(o.text)
@@ -38,9 +42,9 @@ function Entry.new(o)
 end
 
 function Entry.repairMetatable(o)
-    setmetatable(o, instance_metatable)
+    setmetatable(o, _mt)
     for k, piece in pairs(o.entries) do
-        setmetatable(piece, entry_piece_instance_metatable)
+        setmetatable(piece, _piece_mt)
     end
 end
 

@@ -1,28 +1,29 @@
-local InnerList = require "lib.NameList.InnerList"
+-- SimpleList : InnerList
+-- A list that has only numeric weights meaning that unless elements are added to the list, its weight table will never need to be recalculated
+--
+-- Ex.
+-- "{AnimalAdjective} {Animal Name}"       #Explict weight is omitted, implicily assumed to be 1
+-- [2] "{AnimalAdjective} {Animal Name}"   #Explict weight is 2
+-- [2 + 5] "{First} {Second} {Third}"      #Explict weight is 7
+
 local SimpleList = {}
-setmetatable(SimpleList, {__index = InnerList})
-local Expression = require "lib.NameList.Expression"
 
---[[
-    SimpleList
-    A list that has only numeric weights meaning that unless elements are added to the list,
-    its weight table will never need to be recalculated
+local root = (...):match("(.-)[^%.]+$")
+local Expression = require(root .. "Expression")
+local InnerList = require(root .. "InnerList")
 
-    Ex.
-    "{AnimalAdjective} {Animal Name}"       #Explict weight is omitted, implicily assumed to be 1
-    [2] "{AnimalAdjective} {Animal Name}"   #Explict weight is 2
-    [2 + 5] "{First} {Second} {Third}"      #Explict weight is 7
---]]
-local instance_metatable = {__index = SimpleList}
+setmetatable(SimpleList, {__index = InnerList}) -- Subclass of InnerList
+
+local _mt = {__index = SimpleList}
 function SimpleList.new(o)
     o = InnerList.new(o)
-    setmetatable(o, instance_metatable)
+    setmetatable(o, _mt)
     return o
 end
 
 function SimpleList.repairMetatable(o)
     InnerList.repairMetatable(o)
-    setmetatable(o, instance_metatable)
+    setmetatable(o, _mt)
 end
 
 function SimpleList:buildWeightTable()

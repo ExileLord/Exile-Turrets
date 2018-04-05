@@ -1,9 +1,11 @@
+-- Expression
 -- A mathematical expression that can be evaluated
 -- Used to represent weights in name lists
 
-local NameListToken = require "lib.NameList.Token"
-local ExpressionToken = {}
 local Expression = {}
+
+local root = (...):match("(.-)[^%.]+$")
+local NameListToken = require(root .. "Token")
 
 local insert = table.insert
 local remove = table.remove
