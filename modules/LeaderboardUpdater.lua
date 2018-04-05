@@ -1,5 +1,5 @@
---Manages the entity leaderboard object in the background, updating it based on events that happen in the game
---Replacement of turrets.lua
+-- Manages the entity leaderboard object in the background, updating it based on events that happen in the game
+-- Dependent on MasterList module
 
 local EntityLeaderboard = require "lib.EntityLeaderboard"
 local Entry = require "lib.EntityLeaderboard.Entry"
@@ -9,7 +9,7 @@ local KillReason = require "lib.KillReason"
 
 local LeaderboardUpdater = {}
 
---constants
+-- Constants
 local LEADERBOARD_KEYS = 
 {
     "kills",
@@ -23,15 +23,15 @@ local EVENT_LEADERBOARD_UPDATED = Events.on_leaderboard_update
 
 local MAX_NAME_REGENERATION_ATTEMPTS = 7
 
---locals
+-- Locals
 local leaderboard --cached global
 local master_list --cached global
 local names_in_use
 
---cached functions
+-- Cached functions
 is_turret = EntityTools.isTurret
 
---declared functions
+-- Declared functions
 local build_leaderboard
 local add_turret, remove_turret
 local build_names_in_use, add_name, remove_name
@@ -61,7 +61,7 @@ end
 --Name Related--
 ----------------
 
---local builders (stuff used for caching but that shouldn't be in global)
+-- Local builders (stuff used for caching but that shouldn't be in global)
 function build_names_in_use()
     names_in_use = {}
 

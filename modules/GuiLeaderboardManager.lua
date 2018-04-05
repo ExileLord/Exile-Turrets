@@ -1,3 +1,5 @@
+-- Module that manages initialization of and events relating to the gui leaderboard instances
+
 local Manager = {}
 local Bindings = require("lib.Bindings")
 local Events = require("lib.Events")
@@ -31,10 +33,10 @@ end
 
 -- Called in on_init
 function Manager.init()
-    --Init globals
+    -- Init globals
     global.gui_leaderboards = {}
 
-    --Init locals
+    -- Init locals
     cache_globals()
 
     for _, player in pairs(game.players) do
@@ -43,19 +45,15 @@ end
 
 -- Called in on_load
 function Manager.load()
-    --Init locals
+    -- Init locals
     cache_globals()
 
-    --Fix locals
+    -- Fix locals
     for _, gui_leaderboard in pairs(gui_leaderboards) do
         GuiLeaderboard.repairMetatable(gui_leaderboard)
     end
 end
 
-
-
-
---events
 local on_open_gui, on_close_gui
 function on_open_gui(event)
     local index = event.player_index
@@ -110,6 +108,7 @@ local function columns_changed(player_index)
     local gui_leaderboard = gui_leaderboards[player_index]
     local options_gui = gui_leaderboard.gui[Names.options]
     local columns = {}
+
     for _, v in ipairs(Names.keys) do
         local option = options_gui[Names.table_option[v]]
         if option ~= nil and option.state == true then
@@ -120,28 +119,29 @@ local function columns_changed(player_index)
     gui_leaderboard:changeColumns(columns)
 end
 
+-- The player changed which column they want to sort the leaderboard by (Kills by default)
 local function sort_key_changed(player_index, element)
     local sort_key = Names.table_header_reverse[element.name]
     local gui_leaderboard = gui_leaderboards[player_index]
     gui_leaderboard:changeSortKey(sort_key)
 end
 
+-- Is the GUI element a column option? (Eg a checkbox to turn a given column on or off such as kills, damage_dealt, or damage_taken)
 local function element_is_column_option(element)
     return element ~= nil and Names.table_option_reverse[element.name]
 end
 
+-- Is the GUI element a header button in the leaderboard table? (Eg a header for kills, rank, type, damage_dealt, etc)
 local function element_is_header_button(element)
     return element ~= nil and Names.table_header_reverse[element.name]
 end
 
 local function on_gui_checked_state_changed(event)
-    
     local element = event.element
     if element_is_column_option(element) then
         --game.print("Columns changed: " .. event.element.name)
         columns_changed(event.player_index)
     end
-
 end
 
 local function on_gui_click(event)

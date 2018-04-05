@@ -1,3 +1,4 @@
+--Module that manages the floating text that appears when you hover over turrets
 --Load after LeaderboardUpdater
 
 local EntityHover = {}
@@ -15,6 +16,8 @@ local rank_color_table =
     Colors.second_place,
     Colors.third_place
 }
+
+-- Retrieves the color that the given turret / leaderboard entry should be based on its rank / score
 local function get_entry_color(entry)
     local key = "kills"
     local rank = entry.rank[key]
@@ -22,6 +25,7 @@ local function get_entry_color(entry)
     return color or {r = 1, g = 1, b = 1}
 end
 
+-- Should be called whenever the "focus" of a player's mouse changes. Basically whenever they start or stop hovering over an entity / different entity
 local function handle_focus_change(player)
     local index = player.index
 
@@ -76,16 +80,16 @@ end
 
 -- Called in on_init
 function EntityHover.init()
-    --Init globals
+    -- Init globals
     global.hover_text_instances = {}
 
-    --Init locals
+    -- Init locals
     cache_globals()
 end
 
 -- Called in on_load
 function EntityHover.load()
-    --Init locals
+    -- Init locals
     cache_globals()
 end
 

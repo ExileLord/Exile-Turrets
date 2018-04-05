@@ -1,3 +1,6 @@
+-- Module that manages the name lists being used for turret name generation.
+-- No dependencies, should be one of the first modules loaded.
+
 local Module = {}
 
 local default_name_list_text = require("scripts.default_name_list")
