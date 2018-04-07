@@ -335,8 +335,10 @@ end
 
 
 local function on_entity_mined(event)
-    local turret = event.entity
-    kill_turret(turret, KillReason.retired)
+    if is_turret(event.entity) then
+        local turret = event.entity
+        kill_turret(turret, KillReason.retired)
+    end
 end
 
 
