@@ -7,6 +7,8 @@ local Styles = require("lib.Styles")
 local IGNORED_COLUMN_SET =
 {
     ["name"] = true,
+    ["type"] = true,
+    ["rank"] = true,
 }
 
 local DEFAULT_COLUMNS = {"kills", "damage_dealt"}
@@ -22,13 +24,11 @@ function GuiLeaderboard.new(o)
     local available_column_set = {}
     if o.available_columns == nil then
         o.available_columns = {}
-        for k, _ in pairs(o.leaderboard.sorted_entries) do
-            if not IGNORED_COLUMN_SET[k] then
-                available_column_set[k] = true
+        for _, k in ipairs(Names.keys) do
+            if not IGNORED_COLUMN_SET[k] and o.leaderboard.sorted_entries[k] ~= nil then
                 table.insert(o.available_columns, k)
             end
         end
-        table.sort(o.available_columns)
     end
 
     if o.columns == nil then
@@ -73,7 +73,18 @@ function GuiLeaderboard:open()
     return self.gui
 end
 
+function GuiLeaderboard:close()
+    if self.gui ~= nil then
+        self.gui.destroy()
+    end
+    self.gui = nil
+    self.cached_table_children = nil
+end
+
 function GuiLeaderboard:changeSortKey(sort_key)
+    if self.leaderboard.sorted_entries[sort_key] == nil then
+        return
+    end
     self.sort_key = sort_key
     self:rebuildTable()
 end
@@ -87,15 +98,6 @@ end
 function GuiLeaderboard:rebuildTable()
     self.cached_table_children = nil
     Builder.rebuildTable(self)
-end
-
-
-function GuiLeaderboard:close()
-    if self.gui ~= nil then
-        self.gui.destroy()
-    end
-    self.gui = nil
-    self.cached_table_children = nil
 end
 
 function GuiLeaderboard:updateRows(start_row, end_row, key, entry)

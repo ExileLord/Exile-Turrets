@@ -122,6 +122,7 @@ end
 -- The player changed which column they want to sort the leaderboard by (Kills by default)
 local function sort_key_changed(player_index, element)
     local sort_key = Names.table_header_reverse[element.name]
+    assert(sort_key ~= nil)
     local gui_leaderboard = gui_leaderboards[player_index]
     gui_leaderboard:changeSortKey(sort_key)
 end

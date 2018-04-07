@@ -11,6 +11,7 @@ Names.inner_table_cell = "a"
 
 local MAX_CELL_NAME_CACHE = 2000
 
+-- These are useful for autocompletion purposes and causing errors if they are misspelled
 Names.rank = "rank"
 Names.type = "type"
 Names.name = "name"
@@ -19,6 +20,7 @@ Names.damage_dealt = "damage_dealt"
 Names.damage_taken = "damage_taken"
 Names.kill_reason = "kill_reason"
 Names.age = "age"
+
 Names.keys =
 {
     "rank",
@@ -96,21 +98,5 @@ function Names.tableCellReverse(name)
     local index = tonumber(sub(name, 2))
     return key, index
 end
-
-    --[[
-local cell = ""
-local rank_cell = Names.rank .. cell
-local type_cell = Names.type .. cell
-local name_cell = Names.name .. cell
-local kills_cell = Names.kills .. cell
-local damage_dealt_cell = Names.damage_dealt .. cell
-local damage_taken_cell = Names.damage_taken .. cell
-function Names.rank_cell(row) return rank_cell .. row end
-function Names.type_cell(row) return type_cell .. row end
-function Names.name_cell(row) return name_cell .. row end
-function Names.kills_cell(row) return kills_cell .. row end
-function Names.damage_dealt_cell(row) return damage_dealt_cell .. row end
-function Names.damage_taken_cell(row) return damage_taken_cell .. row end
-]]
 
 return Names

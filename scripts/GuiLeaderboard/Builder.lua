@@ -1,13 +1,14 @@
 --Responsible for initially building the gui gui_leaderboard that is displayed on screen
 --Also responsible for modifying that gui leaderboard when it is being displayed on the screen (live updating)
 local Builder = {}
+
 local Names = require("scripts.GuiLeaderboard.Names")
 local Styles = require("lib.Styles")
+local KillReason = require("lib.KillReason")
+
 local MAX_ROWS = 500 --TODO: Make this configurable / add pages
 
-
-
-
+-- Function declarations
 local create_gui_leaderboard_frame
 local add_header
 local add_column_options_table
@@ -22,6 +23,48 @@ local add_table_rank_cell
 local add_table_type_cell
 local add_table_name_cell
 local add_table_label_cell
+
+-------------------------------
+-- Cell formatting functions --
+-------------------------------
+
+local math_floor = math.floor
+local function format_float(key, entry)
+    local value = entry.value[key]
+
+    local value_floor = math_floor(value)
+    if (value - value_floor < 0.5) then
+        return tostring(value_floor)
+    else
+        return tostring(value_floor + 1)
+    end
+end
+
+local function format_kill_reason(key, entry)
+    local value = entry.value[key]
+    return KillReason.toString(value)
+end
+
+local cell_format_function_table =
+{
+    [Names.damage_dealt] = format_float,
+    [Names.damage_taken] = format_float,
+    [Names.kill_reason] = format_kill_reason,
+}
+local function format_generic_cell_value(key, entry)
+    local fn = cell_format_function_table[key]
+    if fn ~= nil then
+        return fn(key, entry)
+    end
+
+    return tostring(entry.value[key])
+end
+
+
+
+
+
+
 
 --Keys (Columns) that should never move in a leaderboard. These should always be the first three elements of a gui leaderboard
 local fixed_keys =
@@ -83,7 +126,7 @@ function add_column_options_table(gui_leaderboard, frame)
 
     local available_columns = gui_leaderboard.available_columns
     local columns = gui_leaderboard.columns
-    for _, key in pairs(available_columns) do
+    for _, key in ipairs(available_columns) do
         container.add {
             type = "checkbox",
             name = Names.table_option[key],
@@ -92,6 +135,10 @@ function add_column_options_table(gui_leaderboard, frame)
         }
     end    
 end
+
+-----------
+-- Table --
+-----------
 
 function add_table(gui_leaderboard, frame)
         frame = frame or gui_leaderboard.gui
@@ -109,8 +156,6 @@ function add_table(gui_leaderboard, frame)
             column_count = 3 + #gui_leaderboard.columns, 
             style = Styles.table
         }
-        gui_table.enabled = false
-
         gui_table.draw_vertical_lines = true
         gui_table.draw_horizontal_line_after_headers = true
 
@@ -125,12 +170,8 @@ function add_table(gui_leaderboard, frame)
             add_table_row(gui_table, columns, list, rank)
         end
 
-        gui_table.enabled = true
         return gui_table, scroll_pane
 end
-
-
-
 
 function add_table_header(table, columns)
     add_table_header_button(table, "rank")
@@ -216,7 +257,8 @@ function add_table_type_cell(table, rank, entry)
     local cell = outer_cell.add {
         type = "entity-preview", 
         name = Names.inner_table_cell, 
-        style = Styles.turret_preview
+        style = Styles.turret_preview,
+        tooltip = entry.value.type
     }
     cell.entity = entry.entity -- Place
 end
@@ -227,7 +269,7 @@ function add_table_cell(table, rank, entry, key)
     outer_cell.add {
         type = "label", 
         name = Names.inner_table_cell, 
-        caption = tostring(entry.value[key])
+        caption = format_generic_cell_value(key, entry)
     }
 end
 
@@ -258,8 +300,7 @@ local function update_cell(cell, entry, key)
         return
     end
 
-    --local new_caption = "dummy"
-    local new_caption = tostring(entry.value[key])
+    local new_caption = format_generic_cell_value(key, entry)
     if cell.caption ~= new_caption then
         cell.caption = new_caption
     end

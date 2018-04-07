@@ -1,4 +1,5 @@
 -- Manages the entity leaderboard object in the background, updating it based on events that happen in the game
+-- Also responsible for building it the first time this mod launches
 -- Dependent on MasterList module
 
 local EntityLeaderboard = require "lib.EntityLeaderboard"
@@ -12,11 +13,12 @@ local LeaderboardUpdater = {}
 -- Constants
 local LEADERBOARD_KEYS = 
 {
+    "type",
     "kills",
     "damage_dealt",
     "damage_taken",
     "name",
-    "kill_reason"
+    "kill_reason",
 }
 
 local EVENT_LEADERBOARD_UPDATED = Events.on_leaderboard_update
@@ -189,7 +191,7 @@ function add_turret(e)
     local damage_taken = 0
     local kill_reason = KillReason.alive
     local name = generate_turret_name(e)
-    local type = e.type
+    local type = e.name
 
     local entry = Entry.new{
         entity = e,
